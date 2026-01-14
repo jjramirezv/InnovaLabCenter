@@ -1,0 +1,173 @@
+/* AdminDashboard.css */
+.admin-container {
+    display: flex; height: 100vh; background-color: #f0f2f5; font-family: 'Roboto', sans-serif;
+}
+
+/* SIDEBAR */
+.admin-sidebar {
+    width: 260px; background-color: #211F30; color: white; display: flex; flex-direction: column;
+}
+.admin-brand {
+    height: 70px; display: flex; align-items: center; padding-left: 25px;
+    font-size: 1.2rem; font-weight: 800; background: #1a1926; color: #E29930; letter-spacing: 1px;
+}
+.admin-nav { padding: 30px 0; flex: 1; }
+.nav-btn {
+    width: 100%; background: none; border: none; color: #a0aec0; padding: 15px 25px;
+    text-align: left; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 0.95rem;
+    transition: all 0.2s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.05); color: white; }
+.nav-btn.active { background: rgba(33, 124, 163, 0.2); color: white; border-left: 4px solid #217CA3; }
+.nav-btn.logout { margin-top: auto; color: #ff6b6b; }
+.nav-btn.logout:hover { background: rgba(255, 107, 107, 0.1); }
+
+/* CONTENIDO */
+.admin-content { flex: 1; padding: 40px; overflow-y: auto; }
+.admin-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
+}
+.admin-header h1 { margin: 0; color: #211F30; font-family: 'Poppins', sans-serif; }
+.btn-create {
+    background-color: #217CA3; color: white; border: none; padding: 12px 25px;
+    border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 12px rgba(33, 124, 163, 0.3); transition: transform 0.2s;
+}
+.btn-create:hover { transform: translateY(-2px); background-color: #1a6585; }
+
+/* GRID CURSOS */
+.admin-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px;
+}
+.admin-card {
+    background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.2s; border: 1px solid #eee; display: flex; flex-direction: column;
+}
+.admin-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+
+.card-img { height: 160px; background-size: cover; background-position: center; }
+.card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.card-body h3 { margin: 0 0 10px; font-size: 1.1rem; color: #333; font-weight: 700; }
+.card-body .price { color: #217CA3; font-weight: 800; font-size: 1.2rem; margin-bottom: 15px; }
+
+/* Badges (Etiquetas de nivel) */
+.badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; color: white; align-self: flex-start; }
+.badge.superior, .badge.profesional { background: #217CA3; } /* Azul */
+.badge.ninos { background: #E29930; } /* Naranja */
+.badge.jovenes { background: #6c757d; } /* Gris */
+
+/* --- BOTONES DE ACCIÓN (EDITAR / CONTENIDO) --- */
+/* ¡ESTO ES LO QUE FALTABA! */
+.card-actions-row {
+    display: flex; 
+    gap: 10px; 
+    margin-top: 20px; /* Espacio arriba de los botones */
+    border-top: 1px solid #f0f0f0; /* Línea separadora sutil */
+    padding-top: 15px;
+}
+
+.btn-action {
+    flex: 1; /* Para que ocupen el 50% cada uno */
+    padding: 10px; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer;
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+/* Botón Editar (Gris suave) */
+.btn-action.edit {
+    background-color: #f3f4f6; 
+    color: #4b5563; 
+    border: 1px solid #e5e7eb;
+}
+.btn-action.edit:hover { 
+    background-color: #e5e7eb; 
+    color: #1f2937; 
+}
+
+/* Botón Contenido (Azul Marca) */
+.btn-action.content {
+    background-color: #217CA3; 
+    color: white;
+}
+.btn-action.content:hover { 
+    background-color: #1a6585; 
+    box-shadow: 0 4px 10px rgba(33, 124, 163, 0.2); 
+}
+
+/* MODAL Y FORMULARIOS */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(33, 31, 48, 0.8); display: flex; align-items: center; justify-content: center; z-index: 1000;
+    backdrop-filter: blur(5px);
+    border-radius: 20px;  
+}
+.modal-content {
+    background: white; padding: 35px; borderRadius: 16px; width: 550px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.modal-header h2 { margin: 0; color: #211F30; font-family: 'Poppins', sans-serif; }
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; font-size: 0.9rem; }
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content textarea, .modal-content select {
+    width: 100%; padding: 12px; border: 1px solid #dde2e5; border-radius: 8px;
+    font-size: 0.95rem; outline: none; box-sizing: border-box; transition: border 0.2s;
+}
+.modal-content input:focus, .modal-content textarea:focus { border-color: #217CA3; }
+.modal-content textarea { resize: vertical; }
+.row { display: flex; gap: 20px; }
+.row .form-group { flex: 1; }
+
+.btn-upload-style {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 15px; border: 2px dashed #ccc; border-radius: 8px;
+    color: #777; cursor: pointer; font-weight: 600; transition: all 0.2s;
+    background: #f9f9f9; box-sizing: border-box;
+}
+.btn-upload-style:hover { border-color: #217CA3; color: #217CA3; background: #f0f7fa; }
+.btn-upload-style.file-selected {
+    border: 2px solid #28a745; color: #28a745; background: #e6ffea;
+}
+
+.modal-buttons { display: flex; justify-content: flex-end; gap: 15px; margin-top: 30px; }
+.btn-cancel { background: #f0f2f5; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; color: #666; font-weight: 600; }
+.btn-submit { background: #E29930; color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 12px rgba(226, 153, 48, 0.3); }
+.btn-submit:hover { background: #d68b25; }
+/* ... dentro de AdminDashboard.css ... */
+
+/* --- PEGAR AL FINAL DE AdminDashboard.css --- */
+
+/* Estilo para el botón de Eliminar (Basurero) */
+.btn-action.delete-course {
+    background-color: #fff;       /* Fondo blanco limpio */
+    border: 2px solid #ffccc7;    /* Borde rojo muy suave y elegante */
+    color: #ff4d4f;               /* Icono color rojo */
+    flex: 0.4;                    /* Un poco más angosto que los otros botones */
+    transition: all 0.3s ease;    /* Animación suave */
+}
+
+/* Efecto al pasar el mouse (Hover) */
+.btn-action.delete-course:hover {
+    background-color: #ff4d4f;    /* Se llena de rojo */
+    color: white;                 /* El icono se vuelve blanco */
+    border-color: #ff4d4f;        /* El borde se fusiona */
+    box-shadow: 0 5px 15px rgba(255, 77, 79, 0.3); /* Sombra roja brillante */
+    transform: translateY(-2px);  /* Se eleva un poquito */
+}
+/* --- ESTILO PARA LA VENTANA DE ELIMINAR --- */
+.modal-content.delete-modal-style {
+    border-radius: 20px;       /* Esquinas bien redondeadas */
+    background: #fff5f5;       /* (Opcional) Fondo muuuuy ligeramente rojizo */
+}

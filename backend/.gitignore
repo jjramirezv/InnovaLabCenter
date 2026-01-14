@@ -1,0 +1,17 @@
+# Dependencias (nunca se suben)
+node_modules/
+
+# Secretos y variables de entorno (OBLIGATORIO IGNORAR)
+.env
+
+# Archivos de subida locales (para que no se llenen de fotos de prueba)
+uploads/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs de error
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

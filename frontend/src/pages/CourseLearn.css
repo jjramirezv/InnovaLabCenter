@@ -1,0 +1,223 @@
+/* CourseLearn.css */
+
+/* --- ESTRUCTURA GENERAL --- */
+.classroom-container {
+    display: flex; height: 100vh; background-color: #f0f2f5; font-family: 'Roboto', sans-serif;
+}
+
+/* --- SIDEBAR (AZUL MARCA OSCURO #211F30) --- */
+.classroom-sidebar {
+    width: 260px; background-color: #211F30; color: white; display: flex; flex-direction: column;
+}
+.sidebar-brand {
+    height: 70px; display: flex; align-items: center; padding: 0 20px;
+    background-color: #1a1926; border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-weight: bold; gap: 10px;
+}
+.btn-back { background: none; border: none; color: #E29930; cursor: pointer; font-size: 1.1rem; }
+
+.menu-category { padding: 20px 25px 10px; font-size: 0.7rem; color: #778ca0; font-weight: 800; letter-spacing: 1px; }
+
+.menu-item {
+    display: flex; align-items: center; gap: 12px; width: 100%; padding: 15px 25px;
+    background: transparent; border: none; color: #a6b7c9; font-size: 0.9rem;
+    cursor: pointer; transition: all 0.2s; border-left: 4px solid transparent;
+}
+.menu-item:hover { color: white; background-color: rgba(255,255,255,0.05); }
+.menu-item.active { 
+    background: linear-gradient(90deg, rgba(33, 124, 163, 0.2) 0%, transparent 100%);
+    color: #E29930; border-left-color: #E29930; 
+}
+
+/* --- ÁREA PRINCIPAL --- */
+.classroom-content { flex: 1; display: flex; flex-direction: column; }
+.classroom-header {
+    height: 70px; background: white; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; border-bottom: 1px solid #ddd;
+}
+.classroom-header h2 { color: #217CA3; margin: 0; font-family: 'Poppins', sans-serif; }
+.user-status { color: #28a745; font-weight: bold; font-size: 0.85rem; background: #e6fffa; padding: 5px 15px; border-radius: 20px; border: 1px solid #b2f5ea; }
+
+.content-area { padding: 30px; flex: 1; overflow: hidden; }
+
+/* --- GRID DE APRENDIZAJE --- */
+.learning-grid { display: flex; gap: 30px; height: 100%; }
+
+/* VISOR CENTRAL (TARJETA DRIVE/MEET) */
+.main-stage {
+    flex: 3; background: #32384D; border-radius: 12px; position: relative;
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.resource-viewer {
+    text-align: center; color: white; z-index: 2; width: 100%; max-width: 500px;
+}
+
+.viewer-card {
+    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+    padding: 40px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+}
+
+.icon-badge {
+    font-size: 3rem; margin-bottom: 20px;
+    color: #E29930; /* Naranja Institucional */
+}
+
+.viewer-title { margin: 0 0 10px; font-family: 'Poppins', sans-serif; font-size: 1.5rem; }
+.viewer-description { color: #cbd5e0; margin-bottom: 25px; line-height: 1.5; }
+
+.meta-info {
+    display: flex; justify-content: center; gap: 15px; color: #7fb3cc; 
+    font-size: 0.9rem; margin-bottom: 30px;
+}
+
+/* BOTONES DE ACCESO (Formales) */
+.btn-access {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 30px; border-radius: 8px; text-decoration: none;
+    font-weight: bold; transition: transform 0.2s; font-size: 1rem;
+}
+.btn-access:hover { transform: translateY(-2px); }
+
+.btn-access.meet {
+    background-color: #00796b; color: white; /* Verde Meet */
+    box-shadow: 0 5px 15px rgba(0, 121, 107, 0.4);
+}
+.btn-access.drive {
+    background-color: #217CA3; color: white; /* Azul Institucional */
+    box-shadow: 0 5px 15px rgba(33, 124, 163, 0.4);
+}
+
+/* LISTA DERECHA */
+.playlist-section {
+    flex: 1; background: white; border-radius: 12px; display: flex; flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden;
+}
+.playlist-header {
+    padding: 20px; background: #f8f9fa; color: #333; font-weight: bold; border-bottom: 1px solid #eee;
+}
+.playlist-items { overflow-y: auto; flex: 1; }
+
+.playlist-item {
+    display: flex; gap: 15px; padding: 15px 20px; width: 100%; border: none;
+    background: white; border-bottom: 1px solid #f0f0f0; cursor: pointer;
+    text-align: left; transition: all 0.2s; align-items: center;
+}
+.playlist-item:hover { background-color: #f5f5f5; }
+
+.playlist-item.active {
+    background-color: #f0f7fa; border-left: 4px solid #217CA3;
+}
+.playlist-item.active .status-indicator { color: #217CA3; }
+.playlist-item.active .title { color: #217CA3; font-weight: 600; }
+
+.status-indicator {
+    color: #ccc; font-weight: bold; width: 25px; text-align: center;
+}
+.playlist-item .info { display: flex; flex-direction: column; }
+.playlist-item .title { font-size: 0.9rem; color: #444; margin-bottom: 3px; }
+.playlist-item .type { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+/* ESTILOS PARA LA PESTAÑA DE RECURSOS */
+.resources-grid-container {
+    padding: 30px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    min-height: 400px;
+}
+
+.section-title {
+    color: #211F30;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive */
+    gap: 20px;
+}
+
+.resource-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    background: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.resource-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    border-color: #217CA3;
+}
+
+.resource-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.resource-icon.archivo {
+    background-color: #FFF3E0;
+    color: #EF6C00; /* Naranja PDF */
+}
+
+.resource-icon.link {
+    background-color: #E3F2FD;
+    color: #1565C0; /* Azul Link */
+}
+
+.resource-info {
+    flex: 1;
+}
+
+.resource-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.resource-info p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.btn-resource-action {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-resource-action:hover {
+    background-color: #217CA3;
+    color: white;
+}
+
+/* Estado vacío */
+.empty-resources {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: #999;
+    background: white;
+    border-radius: 16px;
+}   

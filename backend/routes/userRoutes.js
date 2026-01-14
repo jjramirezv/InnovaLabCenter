@@ -1,0 +1,12 @@
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/userController');
+const { verifyToken } = require('../middleware/authMiddleware');
+
+// Ruta final: GET /api/users/profile
+router.get('/profile', verifyToken, userController.getProfile);
+
+// Ruta final: PUT /api/users/profile
+router.put('/profile', verifyToken, userController.updateProfile);
+
+module.exports = router;

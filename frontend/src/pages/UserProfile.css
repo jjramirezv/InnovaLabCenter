@@ -1,0 +1,118 @@
+/* UserProfile.css - DISEÑO SIMPLIFICADO */
+
+.profile-view-container {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    animation: profileFadeIn 0.4s ease-out;
+}
+
+@keyframes profileFadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-view-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 850px;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(33, 31, 48, 0.08);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 40px;
+}
+
+.profile-view-left {
+    text-align: center;
+    border-right: 1px solid #f0f0f0;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor del Icono de Usuario */
+.profile-view-avatar-wrapper {
+    margin-bottom: 20px;
+    color: #217CA3; /* Color de tu marca */
+}
+
+.profile-view-default-avatar {
+    font-size: 120px; /* Tamaño del icono */
+    opacity: 0.8;
+}
+
+.profile-view-left h3 { color: #211F30; margin: 10px 0 5px; font-size: 1.4rem; }
+.profile-view-left p { color: #778ca0; font-size: 0.9rem; }
+
+.profile-view-right .profile-view-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-view-group { margin-bottom: 15px; text-align: left; }
+
+.profile-view-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #32384D;
+    font-size: 0.9rem;
+}
+
+.profile-view-group input {
+    width: 100% !important;
+    padding: 12px 15px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 10px !important;
+    font-size: 1rem !important;
+    background: #fff !important;
+    box-sizing: border-box;
+}
+
+.profile-view-password-section {
+    background: #fdfaf5;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 25px;
+    border: 1px solid #faeddb;
+}
+
+.profile-view-password-section h4 {
+    color: #E29930;
+    margin: 0 0 15px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-view-btn-save {
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+    background: #217CA3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.profile-view-btn-save:hover { background: #1a6585; transform: translateY(-2px); }
+.profile-view-btn-save:disabled { background: #ccc; cursor: not-allowed; }
+
+@media (max-width: 768px) {
+    .profile-view-card { grid-template-columns: 1fr; padding: 20px; }
+    .profile-view-left { border-right: none; border-bottom: 1px solid #eee; padding-right: 0; padding-bottom: 20px; }
+}

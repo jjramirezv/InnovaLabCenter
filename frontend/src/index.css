@@ -1,0 +1,47 @@
+/* frontend/src/index.css */
+
+/* 1. Importar fuentes para TODA la app */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap');
+
+/* 2. Variables Globales (Tu paleta de colores) */
+:root {
+  --primary: #217CA3;       /* Azul Marca */
+  --primary-dark: #1a6585;  /* Azul Oscuro para hover */
+  --secondary: #E29930;     /* Naranja */
+  --text-main: #211F30;     /* Texto casi negro (Títulos) */
+  --text-body: #555555;     /* Texto gris oscuro (Párrafos) */
+  --bg-body: #f4f6f8;       /* Fondo gris muy suave */
+  --white: #ffffff;
+}
+
+/* 3. Reset Universal */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 4. Estilos Base */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-body);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+}
