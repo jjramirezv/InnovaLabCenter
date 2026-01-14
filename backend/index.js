@@ -29,3 +29,12 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor activo en puerto ${PORT}`);
 });
+const fs = require('fs');
+const path = require('path');
+
+// Crear la carpeta 'uploads' si no existe al iniciar el servidor
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+    console.log('Carpeta uploads creada correctamente');
+}
