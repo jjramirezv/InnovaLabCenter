@@ -6,7 +6,7 @@ import {
 } from 'react-icons/fa';
 
 // --- CONFIGURACIÓN DE URL ---
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'https://innovalabcenter-production.up.railway.app';
 
 function ResourcesManager({ courseId }) {
     const [resources, setResources] = useState([]);

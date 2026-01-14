@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fa';
 import './CourseLearn.css'; 
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'https://innovalabcenter-production.up.railway.app';;
 
 function CourseLearn() {
     const { id } = useParams();
