@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import '../Auth.css';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import FacebookLogin from '@greatsumini/react-facebook-login';
 function LoginPage() {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
