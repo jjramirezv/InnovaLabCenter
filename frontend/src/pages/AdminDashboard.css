@@ -174,16 +174,28 @@
 
 /* --- OPTIMIZACIÓN MÓVIL PARA EL DASHBOARD --- */
 
+/* --- OPTIMIZACIÓN MÓVIL CORREGIDA --- */
+
 @media (max-width: 1024px) {
-    /* En tablets, el sidebar se encoge */
     .admin-sidebar { width: 80px; }
-    .admin-brand span, .nav-btn span { display: none; } /* Ocultar textos, dejar solo iconos */
+    /* Solo ocultamos el texto, no los iconos ni los badges */
+    .admin-brand span, 
+    .nav-btn span { 
+        display: none; 
+    } 
     .admin-brand { padding-left: 0; justify-content: center; }
     .nav-btn { justify-content: center; padding: 20px 0; }
+    
+    /* Aseguramos que el badge de notificación se vea como un punto si el texto está oculto */
+    .notif-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 }
 
 @media (max-width: 768px) {
-    .admin-container { flex-direction: column; } /* Sidebar arriba, contenido abajo */
+    .admin-container { flex-direction: column; }
     
     .admin-sidebar { 
         width: 100%; 
@@ -195,11 +207,17 @@
     }
     
     .admin-brand { height: 60px; padding: 0 20px; width: auto; }
-    
+    /* IMPORTANTE: Volvemos a mostrar los textos en el menú horizontal de móvil */
+    .admin-brand span,
+    .nav-btn span { 
+        display: inline !important; 
+    }
+
     .admin-nav { 
         display: flex; 
         padding: 0; 
-        overflow-x: auto; /* Permite scroll horizontal si hay muchos botones */
+        overflow-x: auto; 
+        flex: 1;
     }
     
     .nav-btn { 
@@ -207,40 +225,19 @@
         white-space: nowrap; 
         border-left: none; 
         border-bottom: 3px solid transparent; 
+        justify-content: center;
+        flex: 1;
     }
-    .nav-btn.active { border-left: none; border-bottom: 3px solid #217CA3; }
-    .nav-btn.logout { margin-top: 0; border: none; }
+    .nav-btn.active { border-bottom: 3px solid #217CA3; }
 
-    .admin-content { padding: 20px; }
-    
-    .admin-header { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 15px; 
+    /* Estilo para la burbuja de notificación en móvil */
+    .notif-badge {
+        position: static;
+        background: #E29930;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 0.7rem;
+        margin-left: 8px;
     }
-    .btn-create { width: 100%; justify-content: center; }
-
-    /* Ajuste de Modales */
-    .modal-content { 
-        width: 95% !important; 
-        padding: 20px; 
-        margin: 10px;
-    }
-    .modal-content .row { flex-direction: column; gap: 0; }
-}
-
-@media (max-width: 480px) {
-    .admin-grid { 
-        grid-template-columns: 1fr; /* Una sola columna de cursos */
-    }
-
-    /* Botones de acción en la tarjeta: los ponemos en columna para que no se vean apretados */
-    .card-actions-row { 
-        flex-direction: column; 
-        gap: 8px; 
-    }
-    .btn-action { width: 100%; }
-    .btn-action.delete-course { flex: 1; } /* Que ocupe todo el ancho igual que los otros */
-    
-    .admin-header h1 { font-size: 1.5rem; }
 }

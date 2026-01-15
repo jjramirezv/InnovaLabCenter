@@ -140,17 +140,23 @@ function AdminDashboard() {
                 </div>
                 <nav className="admin-nav">
                     <button className={`nav-btn ${activeTab === 'cursos' ? 'active' : ''}`} onClick={() => setActiveTab('cursos')}>
-                        <FaLayerGroup /> Gestión de Cursos
+                        <FaLayerGroup /> <span>Gestión de Cursos</span>
                     </button>
+                    
                     <button className={`nav-btn ${activeTab === 'solicitudes' ? 'active' : ''}`} onClick={() => setActiveTab('solicitudes')} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <span><FaBell /> Solicitudes</span>
+                        <div style={{display:'flex', alignItems:'center', gap:'12px'}}>
+                            <FaBell /> <span>Solicitudes</span>
+                        </div>
                         {pendingEnrollments.length > 0 && (
-                            <span style={{background:'#E29930', color:'white', padding:'2px 8px', borderRadius:'10px', fontSize:'0.75rem', fontWeight:'bold'}}>
+                            <b className="notif-badge">
                                 {pendingEnrollments.length}
-                            </span>
+                            </b>
                         )}
                     </button>
-                    <button className="nav-btn logout" onClick={() => { localStorage.clear(); navigate('/login'); }}><FaSignOutAlt /> Cerrar Sesión</button>
+                    
+                    <button className="nav-btn logout" onClick={() => { localStorage.clear(); navigate('/login'); }}>
+                        <FaSignOutAlt /> <span>Cerrar Sesión</span>
+                    </button>
                 </nav>
             </aside>
 
