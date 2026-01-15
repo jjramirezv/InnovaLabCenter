@@ -175,13 +175,12 @@
 }/* --- REPARACIÓN MÓVIL FINAL (SIN ERRORES) --- */
 
 @media (max-width: 768px) {
-    .header-left {
-        width: 100%;
-    }
     .header-titles h1 {
-        width: 100%;
-        max-width: 100%;
-        text-align: center;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 1rem !important;
     }
     /* 1. Recuperar Scroll de Pestañas */
     .manage-tabs {
@@ -222,9 +221,9 @@
     .lesson-right {
         width: 100% !important;
         justify-content: space-between !important;
-        margin-top: 10px;
+        margin-top: 8px;
         border-top: 1px dashed #ddd;
-        padding-top: 10px;
+        padding-top: 8px;
     }
 
     /* 3. Recursos: Arreglar desborde de URL (image_968e70.jpg) */
@@ -290,3 +289,5 @@
         margin-bottom: 20px !important;
     }
 }
+
+/* --- REPARACIÓN MÓVIL FINAL --- */

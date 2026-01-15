@@ -25,22 +25,19 @@ function AdminCourseContent() {
     // ESTADOS DE MODALES
     const [showModal, setShowModal] = useState(false); 
     const [showEnrollModal, setShowEnrollModal] = useState(false); 
-    const [showEditProgressModal, setShowEditProgressModal] = useState(false); 
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [showErrorModal, setShowErrorModal] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-
     const [showDeleteStudentConfirm, setShowDeleteStudentConfirm] = useState(false);
-    const [studentToDelete, setStudentToDelete] = useState(null);
-    const [showDeleteGradeModal, setShowDeleteGradeModal] = useState(false); 
-    const [gradeToDelete, setGradeToDelete] = useState(null); 
+    const [showDeleteGradeModal, setShowDeleteGradeModal] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
-    const [enrollData, setEnrollData] = useState({ email: '', nombres: '', apellidos: '' });
-    const [editingStudent, setEditingStudent] = useState(null); 
-    const [newProgress, setNewProgress] = useState(0);
+    // SELECCIÓN PARA BORRAR
     const [lessonToDelete, setLessonToDelete] = useState(null);
-    const [newLesson, setNewLesson] = useState({ titulo: '', video_url: '', duracion: '', orden: 1, descripcion: '' });
+    const [studentToDelete, setStudentToDelete] = useState(null);
+    const [gradeToDelete, setGradeToDelete] = useState(null);
+
+    // FORMULARIOS
+    const [enrollData, setEnrollData] = useState({ email: '' });
+    const [newLesson, setNewLesson] = useState({ titulo: '', video_url: '', duracion: '', orden: 1 });
 
     useEffect(() => {
         fetchData();
@@ -50,14 +47,12 @@ function AdminCourseContent() {
         try {
             const token = localStorage.getItem('token');
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            
             const [resCourse, resLessons, resStudents, resGrades] = await Promise.all([
                 axios.get(`/courses/${cleanId}`),
                 axios.get(`/courses/${cleanId}/lessons`),
                 axios.get(`/courses/${cleanId}/students`, config),
                 axios.get(`/quizzes/admin/results/course/${cleanId}`, config) 
             ]);
-
             setCourse(resCourse.data);
             setLessons(resLessons.data);
             setStudents(resStudents.data);
@@ -71,16 +66,15 @@ function AdminCourseContent() {
             const token = localStorage.getItem('token');
             await axios.post(`/courses/${cleanId}/lessons`, newLesson, { headers: { Authorization: `Bearer ${token}` } });
             setShowModal(false); setShowSuccess(true); fetchData();
-            setNewLesson({ titulo: '', video_url: '', duracion: '', orden: lessons.length + 2, descripcion: '' });
-        } catch (error) { setErrorMessage("Error al crear lección"); setShowErrorModal(true); }
+        } catch (error) { alert("Error al guardar"); }
     };
 
     const handleDeleteLesson = async () => {
         try {
             const token = localStorage.getItem('token');
             await axios.delete(`/courses/lessons/${lessonToDelete.id}`, { headers: { Authorization: `Bearer ${token}` } });
-            setShowDeleteConfirm(false); fetchData(); 
-        } catch (error) { setErrorMessage("No se pudo borrar"); setShowErrorModal(true); }
+            setShowDeleteConfirm(false); fetchData();
+        } catch (error) { alert("Error al eliminar"); }
     };
 
     const handleManualEnroll = async (e) => {
@@ -89,17 +83,23 @@ function AdminCourseContent() {
             const token = localStorage.getItem('token');
             await axios.post(`/courses/${cleanId}/students`, enrollData, { headers: { Authorization: `Bearer ${token}` } });
             setShowEnrollModal(false); setShowSuccess(true); fetchData();
-            setEnrollData({ email: '', nombres: '', apellidos: '' });
-        } catch (error) { setErrorMessage(error.response?.data?.message || "Error"); setShowErrorModal(true); }
+        } catch (error) { alert("Error en inscripción"); }
     };
 
-    const confirmDeleteGrade = (grade) => { setGradeToDelete(grade); setShowDeleteGradeModal(true); };
+    const handleRemoveStudent = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.delete(`/courses/${cleanId}/students/${studentToDelete.id}`, { headers: { Authorization: `Bearer ${token}` } });
+            setShowDeleteStudentConfirm(false); fetchData();
+        } catch (error) { alert("Error al quitar alumno"); }
+    };
+
     const handleDeleteGrade = async () => {
         try {
             const token = localStorage.getItem('token');
             await axios.delete(`/quizzes/admin/results/${gradeToDelete.id}`, { headers: { Authorization: `Bearer ${token}` } });
             setShowDeleteGradeModal(false); fetchData();
-        } catch (error) { setErrorMessage("Error al eliminar nota"); setShowErrorModal(true); }
+        } catch (error) { alert("Error al resetear nota"); }
     };
 
     const getIconType = (url) => {
@@ -118,7 +118,7 @@ function AdminCourseContent() {
                     <button onClick={() => navigate('/admin')} className="btn-back-circle"><FaArrowLeft /></button>
                     <div className="header-titles">
                         <span className="subtitle">Gestión de Curso:</span>
-                        <h1>{course.titulo}</h1>
+                        <h1 title={course.titulo}>{course.titulo}</h1>
                     </div>
                 </div>
             </header>
@@ -143,7 +143,10 @@ function AdminCourseContent() {
                                     <div className="lesson-left">
                                         <div className="lesson-drag-handle">#{lesson.orden}</div>
                                         <div className="lesson-icon-wrapper">{getIconType(lesson.video_url)}</div>
-                                        <div className="lesson-info"><strong>{lesson.titulo}</strong><small>{lesson.video_url}</small></div>
+                                        <div className="lesson-info">
+                                            <strong>{lesson.titulo}</strong>
+                                            <small className="encajonado">{lesson.video_url}</small>
+                                        </div>
                                     </div>
                                     <div className="lesson-right">
                                         <span className="badge-duration">{lesson.duracion}</span>
@@ -173,7 +176,7 @@ function AdminCourseContent() {
                                 {students.map((st) => (
                                     <tr key={st.id}>
                                         <td data-label="Estudiante">
-                                            <div style={{display:'flex', alignItems:'center', gap:'10px', justifyContent:'flex-end'}}>
+                                            <div className="student-cell">
                                                 <div className="user-avatar-small">{st.names?.charAt(0)}</div>
                                                 <strong>{st.names}</strong>
                                             </div>
@@ -192,46 +195,46 @@ function AdminCourseContent() {
                 )}
             </div>
 
-            {/* --- MODALES REALES --- */}
+            {/* --- MODALES DE BORRADO Y CREACIÓN --- */}
             {showModal && (
-                <div className="custom-modal-overlay">
-                    <div className="custom-modal">
-                        <div className="modal-header-simple"><h2>Nueva Lección</h2><button onClick={() => setShowModal(false)}><FaTimes /></button></div>
-                        <form onSubmit={handleAddLesson}>
-                            <div className="form-group"><label>Título</label><input type="text" onChange={e => setNewLesson({...newLesson, titulo: e.target.value})} required /></div>
-                            <div className="form-group"><label>URL (Drive/Meet)</label><input type="text" onChange={e => setNewLesson({...newLesson, video_url: e.target.value})} required /></div>
-                            <div className="modal-actions">
-                                <button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>Cancelar</button>
-                                <button type="submit" className="btn-confirm">Guardar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <div className="custom-modal-overlay"><div className="custom-modal">
+                    <div className="modal-header-simple"><h2>Nueva Lección</h2><button onClick={() => setShowModal(false)}><FaTimes /></button></div>
+                    <form onSubmit={handleAddLesson}>
+                        <div className="form-group"><label>Título</label><input type="text" onChange={e => setNewLesson({...newLesson, titulo: e.target.value})} required /></div>
+                        <div className="form-group"><label>URL</label><input type="text" onChange={e => setNewLesson({...newLesson, video_url: e.target.value})} required /></div>
+                        <div className="modal-actions"><button type="button" className="btn-cancel" onClick={() => setShowModal(false)}>Cancelar</button><button type="submit" className="btn-confirm">Guardar</button></div>
+                    </form>
+                </div></div>
+            )}
+
+            {showDeleteConfirm && (
+                <div className="custom-modal-overlay"><div className="custom-modal" style={{textAlign:'center'}}>
+                    <FaExclamationTriangle size={40} color="#dc3545" />
+                    <h3>¿Eliminar Lección?</h3>
+                    <p>Se borrará "{lessonToDelete?.titulo}" permanentemente.</p>
+                    <div className="modal-actions"><button className="btn-cancel" onClick={() => setShowDeleteConfirm(false)}>No</button><button className="btn-confirm" style={{background:'#dc3545'}} onClick={handleDeleteLesson}>Sí, eliminar</button></div>
+                </div></div>
             )}
 
             {showEnrollModal && (
-                <div className="custom-modal-overlay">
-                    <div className="custom-modal">
-                        <div className="modal-header-simple"><h2>Inscripción Manual</h2><button onClick={() => setShowEnrollModal(false)}><FaTimes /></button></div>
-                        <form onSubmit={handleManualEnroll}>
-                            <div className="form-group"><label>Email del Alumno</label><input type="email" style={{width:'100%', padding:'12px', borderRadius:'8px', border:'1px solid #ddd'}} onChange={e => setEnrollData({...enrollData, email: e.target.value})} required /></div>
-                            <div className="modal-actions">
-                                <button type="button" className="btn-cancel" onClick={() => setShowEnrollModal(false)}>Cerrar</button>
-                                <button type="submit" className="btn-confirm">Inscribir</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <div className="custom-modal-overlay"><div className="custom-modal">
+                    <div className="modal-header-simple"><h2>Inscripción Manual</h2><button onClick={() => setShowEnrollModal(false)}><FaTimes /></button></div>
+                    <form onSubmit={handleManualEnroll}><div className="form-group"><label>Email del Alumno</label><input type="email" onChange={e => setEnrollData({email: e.target.value})} required /></div>
+                    <div className="modal-actions"><button type="button" className="btn-cancel" onClick={() => setShowEnrollModal(false)}>Cerrar</button><button type="submit" className="btn-confirm">Inscribir</button></div></form>
+                </div></div>
+            )}
+
+            {showDeleteStudentConfirm && (
+                <div className="custom-modal-overlay"><div className="custom-modal" style={{textAlign:'center'}}>
+                    <FaUserTimes size={40} color="#dc3545" />
+                    <h3>¿Quitar Alumno?</h3>
+                    <p>Se eliminará el acceso de {studentToDelete?.names}.</p>
+                    <div className="modal-actions"><button className="btn-cancel" onClick={() => setShowDeleteStudentConfirm(false)}>No</button><button className="btn-confirm" style={{background:'#dc3545'}} onClick={handleRemoveStudent}>Sí, quitar</button></div>
+                </div></div>
             )}
 
             {showSuccess && (
-                <div className="custom-modal-overlay">
-                    <div className="custom-modal" style={{textAlign:'center'}}>
-                        <FaCheckCircle size={50} color="#28a745" />
-                        <h2>¡Completado!</h2>
-                        <button className="btn-confirm" onClick={() => setShowSuccess(false)}>Aceptar</button>
-                    </div>
-                </div>
+                <div className="custom-modal-overlay"><div className="custom-modal" style={{textAlign:'center'}}><FaCheckCircle size={50} color="#28a745" /><h2>¡Listo!</h2><button className="btn-confirm" onClick={() => setShowSuccess(false)}>Aceptar</button></div></div>
             )}
         </div>
     );
