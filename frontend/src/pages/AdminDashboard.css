@@ -171,3 +171,76 @@
     border-radius: 20px;       /* Esquinas bien redondeadas */
     background: #fff5f5;       /* (Opcional) Fondo muuuuy ligeramente rojizo */
 }
+
+/* --- OPTIMIZACIÓN MÓVIL PARA EL DASHBOARD --- */
+
+@media (max-width: 1024px) {
+    /* En tablets, el sidebar se encoge */
+    .admin-sidebar { width: 80px; }
+    .admin-brand span, .nav-btn span { display: none; } /* Ocultar textos, dejar solo iconos */
+    .admin-brand { padding-left: 0; justify-content: center; }
+    .nav-btn { justify-content: center; padding: 20px 0; }
+}
+
+@media (max-width: 768px) {
+    .admin-container { flex-direction: column; } /* Sidebar arriba, contenido abajo */
+    
+    .admin-sidebar { 
+        width: 100%; 
+        height: auto; 
+        flex-direction: row; 
+        position: sticky; 
+        top: 0; 
+        z-index: 1000; 
+    }
+    
+    .admin-brand { height: 60px; padding: 0 20px; width: auto; }
+    
+    .admin-nav { 
+        display: flex; 
+        padding: 0; 
+        overflow-x: auto; /* Permite scroll horizontal si hay muchos botones */
+    }
+    
+    .nav-btn { 
+        padding: 15px 20px; 
+        white-space: nowrap; 
+        border-left: none; 
+        border-bottom: 3px solid transparent; 
+    }
+    .nav-btn.active { border-left: none; border-bottom: 3px solid #217CA3; }
+    .nav-btn.logout { margin-top: 0; border: none; }
+
+    .admin-content { padding: 20px; }
+    
+    .admin-header { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 15px; 
+    }
+    .btn-create { width: 100%; justify-content: center; }
+
+    /* Ajuste de Modales */
+    .modal-content { 
+        width: 95% !important; 
+        padding: 20px; 
+        margin: 10px;
+    }
+    .modal-content .row { flex-direction: column; gap: 0; }
+}
+
+@media (max-width: 480px) {
+    .admin-grid { 
+        grid-template-columns: 1fr; /* Una sola columna de cursos */
+    }
+
+    /* Botones de acción en la tarjeta: los ponemos en columna para que no se vean apretados */
+    .card-actions-row { 
+        flex-direction: column; 
+        gap: 8px; 
+    }
+    .btn-action { width: 100%; }
+    .btn-action.delete-course { flex: 1; } /* Que ocupe todo el ancho igual que los otros */
+    
+    .admin-header h1 { font-size: 1.5rem; }
+}

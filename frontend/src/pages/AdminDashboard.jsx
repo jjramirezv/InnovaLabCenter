@@ -135,7 +135,9 @@ function AdminDashboard() {
     return (
         <div className="admin-container">
             <aside className="admin-sidebar">
-                <div className="admin-brand">InnovaLab Admin</div>
+                <div className="admin-brand">
+                    <FaChalkboardTeacher /> <span>InnovaLab Center</span>
+                </div>
                 <nav className="admin-nav">
                     <button className={`nav-btn ${activeTab === 'cursos' ? 'active' : ''}`} onClick={() => setActiveTab('cursos')}>
                         <FaLayerGroup /> Gestión de Cursos
