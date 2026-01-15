@@ -276,3 +276,23 @@
         font-size: 2rem !important;
     }
 }
+
+/* Estilo general para el botón de logout */
+.nav-item.logout {
+    color: #ffb3b3; /* Un rojo suave para que no choque con el diseño */
+    margin-top: auto; /* En escritorio lo empuja hacia abajo si hay espacio */
+}
+
+.nav-item.logout:hover {
+    background-color: rgba(255, 77, 79, 0.2) !important;
+    color: #ff4d4f !important;
+}
+
+
+/* Ajuste específico para móvil (basado en tu captura 1000136965.jpg) */
+@media (max-width: 768px) {
+    .nav-item.logout {
+        margin-top: 10px; /* En móvil no usamos 'auto' para evitar que se salga de la pantalla */
+        border: 1px solid rgba(255, 77, 79, 0.3); /* Un borde sutil para identificarlo rápido */
+    }
+}
