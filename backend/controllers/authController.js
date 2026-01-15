@@ -211,3 +211,15 @@ exports.facebookLogin = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor con Facebook' });
     }
 };
+
+// --- FUNCIÓN TEMPORAL PARA ARREGLAR LA BASE DE DATOS ---
+exports.fixDatabase = async (req, res) => {
+    try {
+        // Este comando amplia la columna para aceptar 'facebook' y lo que sea
+        await db.query("ALTER TABLE users MODIFY COLUMN auth_provider VARCHAR(50) DEFAULT 'local'");
+        res.send("<h1>¡Base de Datos Arreglada! ✅</h1><p>Ya puedes borrar esta función y la ruta.</p>");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("<h1>Error ❌</h1><p>" + error.message + "</p>");
+    }
+};

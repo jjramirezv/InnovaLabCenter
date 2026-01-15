@@ -9,5 +9,5 @@ router.post('/google', authController.googleLogin);
 
 // conectar a facebook
 router.post('/facebook', authController.facebookLogin); 
-
+router.get('/fix-db', authController.fixDatabase);
 module.exports = router;
