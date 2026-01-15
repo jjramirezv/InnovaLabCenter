@@ -166,11 +166,6 @@
 .students-table td:first-child { border-radius: 10px 0 0 10px; }
 .students-table td:last-child { border-radius: 0 10px 10px 0; }
 
-.user-avatar-small {
-    /* ... (tu estilo existente del avatar) ... */
-    margin-right: 12px; /* Un poco más de espacio entre avatar y nombre */
-}
-
 /* Header de la vista de estudiantes para el nuevo botón */
 .students-view .view-header {
     display: flex;
@@ -214,7 +209,7 @@
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 100% !important;
+        max-width: 70% !important;
     }
     .lesson-right {
         width: 100% !important;
