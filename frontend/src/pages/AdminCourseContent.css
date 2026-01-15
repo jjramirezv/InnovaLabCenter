@@ -47,7 +47,7 @@
 .tab-btn.active { color: #217CA3; border-bottom-color: #217CA3; font-weight: bold; }
 
 /* CONTENIDO */
-.manage-content { padding: 40px; max-width: 1000px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+.manage-content { padding: 40px; max-width: 1400px; margin: 0 auto; width: 100%; box-sizing: border-box; }
 
 .view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
 .view-header h3 { color: #333; margin: 0; font-size: 1.3rem; }
