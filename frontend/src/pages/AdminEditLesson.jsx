@@ -67,68 +67,56 @@ function AdminEditLesson() {
 
     if (loading) return <div style={{padding:'40px'}}>Cargando editor...</div>;
 
-    return (
-        <div className="edit-page-container">
-            <header className="edit-header">
-                <button onClick={goBack} className="btn-back-admin">
-                    <FaArrowLeft /> Volver al Contenido
+return (
+        <div className="lesson-edit-container">
+            <header className="lesson-edit-header">
+                <button onClick={goBack} className="lesson-edit-btn-back">
+                    <FaArrowLeft /> Volver
                 </button>
                 <div style={{textAlign:'center'}}>
-                    <small style={{color:'#888', textTransform:'uppercase', fontSize:'0.7rem', fontWeight:'bold'}}>EDITANDO LECCIÓN #{lesson.orden}</small>
-                    <h1 style={{margin:0, fontSize:'1.2rem'}}>{lesson.titulo}</h1>
+                    <small style={{color:'#888', textTransform:'uppercase', fontSize:'0.7rem', fontWeight:'bold', display:'block'}}>EDITANDO LECCIÓN #{lesson.orden}</small>
+                    <h1 style={{margin:0, fontSize:'1.2rem', color:'#211F30'}}>{lesson.titulo}</h1>
                 </div>
-                <button onClick={handleUpdate} className="btn-save-top">
-                    <FaSave /> Guardar Cambios
+                <button onClick={handleUpdate} className="lesson-edit-btn-save">
+                    <FaSave /> Guardar
                 </button>
             </header>
 
-            <div className="edit-content">
-                <form className="edit-form" onSubmit={handleUpdate}>
-                    <section className="form-section">
-                        <h3>Detalles de la Clase</h3>
-                        
-                        <div className="form-group">
-                            <label>Título de la Lección</label>
-                            <input type="text" name="titulo" value={lesson.titulo} onChange={handleChange} required />
-                        </div>
+            <div className="lesson-edit-body">
+                <form className="lesson-edit-card" onSubmit={handleUpdate}>
+                    <h3>Detalles de la Clase</h3>
+                    
+                    <div className="form-group">
+                        <label>Título de la Lección</label>
+                        <input type="text" name="titulo" value={lesson.titulo} onChange={handleChange} required 
+                               style={{width:'100%', padding:'12px', borderRadius:'8px', border:'1px solid #ddd'}} />
+                    </div>
 
-                        {/* --- NUEVO CAMPO DE DESCRIPCIÓN --- */}
-                        <div className="form-group">
-                            <label>Descripción / Notas de la Clase</label>
-                            <textarea 
-                                name="descripcion" 
-                                rows="5"
-                                value={lesson.descripcion} 
-                                onChange={handleChange} 
-                                placeholder="Escribe instrucciones, resúmenes o notas importantes para el alumno..."
-                                style={{
-                                    width:'100%', padding:'12px', borderRadius:'6px', 
-                                    border:'1px solid #ddd', fontFamily:'inherit', fontSize:'1rem', 
-                                    resize:'vertical', background:'#fafafa'
-                                }}
-                            />
-                            <small style={{color:'#888'}}>Opcional: Instrucciones adicionales para esta clase.</small>
-                        </div>
+                    <div className="form-group" style={{marginTop:'20px'}}>
+                        <label>Descripción / Notas</label>
+                        <textarea name="descripcion" rows="5" value={lesson.descripcion} onChange={handleChange} 
+                                  placeholder="Notas para el alumno..."
+                                  style={{width:'100%', padding:'12px', borderRadius:'8px', border:'1px solid #ddd', fontFamily:'inherit'}} />
+                    </div>
 
-                        <div className="form-group">
-                            <label>Enlace de Contenido (Drive / Meet / YouTube)</label>
-                            <input type="text" name="video_url" value={lesson.video_url} onChange={handleChange} required />
-                            <small style={{color:'#666', marginTop:'5px', display:'block'}}>
-                                * Pega aquí el enlace de Google Drive (video/carpeta) o el enlace de Google Meet.
-                            </small>
-                        </div>
+                    <div className="form-group" style={{marginTop:'20px'}}>
+                        <label>Enlace de Contenido (Drive / YouTube)</label>
+                        <input type="text" name="video_url" value={lesson.video_url} onChange={handleChange} required 
+                               style={{width:'100%', padding:'12px', borderRadius:'8px', border:'1px solid #ddd'}} />
+                    </div>
 
-                        <div className="row-2">
-                            <div className="form-group">
-                                <label>Duración</label>
-                                <input type="text" name="duracion" value={lesson.duracion} onChange={handleChange} placeholder="Ej: 45 min" />
-                            </div>
-                            <div className="form-group">
-                                <label>Orden (Número)</label>
-                                <input type="number" name="orden" value={lesson.orden} onChange={handleChange} />
-                            </div>
+                    <div className="lesson-edit-grid" style={{marginTop:'20px'}}>
+                        <div className="form-group">
+                            <label>Duración</label>
+                            <input type="text" name="duracion" value={lesson.duracion} onChange={handleChange} 
+                                   style={{width:'100%', padding:'12px', borderRadius:'8px', border:'1px solid #ddd'}} />
                         </div>
-                    </section>
+                        <div className="form-group">
+                            <label>Orden (Número)</label>
+                            <input type="number" name="orden" value={lesson.orden} onChange={handleChange} 
+                                   style={{width:'100%', padding:'12px', borderRadius:'8px', border:'1px solid #ddd'}} />
+                        </div>
+                    </div>
                 </form>
             </div>
 
