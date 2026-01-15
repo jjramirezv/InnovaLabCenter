@@ -209,7 +209,7 @@
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 70% !important;
+        max-width: 100% !important;
     }
     .lesson-right {
         width: 100% !important;
@@ -228,7 +228,7 @@
         flex-direction: column !important;
     }
     input[type="url"], input[type="text"] {
-        width: 100% !important;
+        width: 70% !important;
         box-sizing: border-box !important;
     }
 
