@@ -178,3 +178,222 @@
     align-items: center;
     margin-bottom: 20px;
 }
+
+/* --- RESPONSIVE: GESTIÓN DE CONTENIDO --- */
+
+@media (max-width: 900px) {
+    .manage-header-aligned {
+        padding: 0 20px;
+        height: auto;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .manage-tabs {
+        padding: 0 10px;
+        overflow-x: auto; /* Permite scroll horizontal en las pestañas */
+        white-space: nowrap;
+        gap: 15px;
+    }
+    
+    .tab-btn {
+        padding: 15px 5px;
+        font-size: 0.9rem;
+    }
+
+    .manage-content {
+        padding: 20px 15px;
+    }
+
+    /* Ajuste de Lecciones */
+    .lesson-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .lesson-right {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+    }
+
+    /* --- TRANSFORMACIÓN DE TABLA DE ALUMNOS --- */
+    .students-table, 
+    .students-table thead, 
+    .students-table tbody, 
+    .students-table th, 
+    .students-table td, 
+    .students-table tr { 
+        display: block; 
+    }
+
+    .students-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .students-table tr {
+        background: white;
+        margin-bottom: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        border: 1px solid #eee;
+    }
+
+    .students-table td {
+        border: none;
+        border-bottom: 1px solid #f9f9f9;
+        position: relative;
+        padding-left: 50% !important; /* Espacio para el label */
+        white-space: normal;
+        text-align: right;
+        min-width: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* Creamos etiquetas para cada celda usando contenido generado */
+    .students-table td:before {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #666;
+    }
+
+    /* Nombres de las etiquetas (Personaliza según tus columnas) */
+    .students-table td:nth-of-type(1):before { content: "Estudiante"; }
+    .students-table td:nth-of-type(2):before { content: "Progreso"; }
+    .students-table td:nth-of-type(3):before { content: "Inscripción"; }
+    .students-table td:nth-of-type(4):before { content: "Acciones"; }
+
+    /* Ajuste de avatar en modo card */
+    .students-table td:first-child {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    .user-avatar-small { margin-bottom: 5px; }
+}
+
+@media (max-width: 480px) {
+    .view-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    .btn-add-lesson { width: 100%; justify-content: center; }
+}
+
+
+/* --- PARCHE RESPONSIVE PARA QUIZ MANAGER (Pegar al final de AdminCourseContent.css) --- */
+
+@media (max-width: 768px) {
+    /* Ajustamos el contenedor blanco de los exámenes */
+    [style*="padding: '30px'"] {
+        padding: 15px !important;
+    }
+
+    /* La cabecera (Título + Botón Nuevo Examen) se pone en vertical */
+    [style*="display: 'flex'"][style*="justify-content: 'space-between'"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 15px !important;
+    }
+
+    /* Cada tarjeta de examen se ajusta */
+    [style*="borderLeft: quiz.estado === 'publicado'"] {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px !important;
+    }
+
+    /* Los botones de "Editar Preguntas" y "Borrar" ocupan todo el ancho */
+    [style*="display: 'flex'"][style*="gap: '10px'"] {
+        width: 100% !important;
+        flex-direction: column !important;
+    }
+
+    [style*="display: 'flex'"][style*="gap: '10px'"] button {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    /* El modal de configuración de examen */
+    .custom-modal {
+        width: 95% !important;
+        padding: 20px !important;
+    }
+
+    /* La cuadrícula de Duración y Nota Pasa a 1 columna */
+    [style*="gridTemplateColumns: '1fr 1fr'"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* --- RESPONSIVE: EDITOR DE PREGUNTAS (QuizEditor) --- */
+
+@media (max-width: 768px) {
+    /* El contenedor principal de la edición */
+    .edit-quiz-container {
+        padding: 15px !important;
+    }
+
+    /* La cabecera del editor */
+    .quiz-edit-header {
+        flex-direction: column !important;
+        gap: 15px !important;
+        text-align: center;
+    }
+
+    /* Formulario de Nueva Pregunta */
+    .new-question-box {
+        padding: 20px !important;
+    }
+
+    /* Ajuste de los inputs de opciones */
+    .option-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .option-row input[type="text"] {
+        width: 100% !important;
+    }
+
+    /* Los botones de "Guardar Pregunta" y "Cancelar" */
+    .question-actions {
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+
+    .question-actions button {
+        width: 100% !important;
+        padding: 15px !important;
+    }
+
+    /* Tarjetas de preguntas ya creadas */
+    .question-card {
+        padding: 15px !important;
+    }
+
+    .question-card-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+}
