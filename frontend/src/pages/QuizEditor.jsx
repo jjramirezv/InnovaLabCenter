@@ -139,7 +139,7 @@ function QuizEditor() {
                 </div>
             </header>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '30px' }}>
+            <div className="quiz-editor-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '30px' }}>
                 {/* LISTA DE PREGUNTAS (DISEÑO CARDS) */}
                 <div style={{ display:'flex', flexDirection:'column', gap:'15px' }}>
                     {questions.length === 0 ? (
@@ -173,7 +173,7 @@ function QuizEditor() {
                 </div>
 
                 {/* PANEL AGREGAR PREGUNTA (STICKY) */}
-                <div style={{ background: 'white', padding: '30px', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', position:'sticky', top:'20px', height:'fit-content' }}>
+                <div className="quiz-editor-sidebar" style={{ background: 'white', padding: '30px', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.08)', position:'sticky', top:'20px', height:'fit-content' }}>
                     <h3 style={{ margin:'0 0 25px 0', color:'#211F30', fontSize:'1.3rem', display:'flex', alignItems:'center', gap:'10px' }}><FaPlus size={18} color="#217CA3"/> Agregar Pregunta</h3>
                     
                     {validationError && (

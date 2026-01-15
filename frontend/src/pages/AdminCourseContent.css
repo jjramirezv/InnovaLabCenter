@@ -178,112 +178,76 @@
     align-items: center;
     margin-bottom: 20px;
 }
-
-/* --- RESPONSIVE: GESTIÓN DE CONTENIDO --- */
-/* --- REPARACIÓN MÓVIL DEFINITIVA --- */
-
+/* --- REPARACIÓN MÓVIL AGRESIVA --- */
 @media (max-width: 768px) {
-    /* 1. Tabs: Permitir scroll horizontal sin que se rompan */
-    .manage-tabs {
-        padding: 0 10px !important;
+    .lesson-info small, 
+    .students-table td,
+    input {
+        word-break: break-all !important;
+        white-space: normal !important;
+    }
+    /* Forzar que CUALQUIER grid de 2 columnas se vuelva de 1 */
+    div[style*="grid-template-columns"], 
+    div[style*="gridTemplateColumns"],
+    .responsive-grid-2 {
+        grid-template-columns: 1fr !important;
         display: flex !important;
-        overflow-x: auto !important;
-        white-space: nowrap !important;
-        -webkit-overflow-scrolling: touch;
-        gap: 10px !important;
-    }
-    
-    .tab-btn {
-        padding: 15px 10px !important;
-        font-size: 0.85rem !important;
-        flex-shrink: 0 !important; /* Evita que se encojan */
-    }
-
-    /* 2. Contenedor Principal: Menos espacio desperdiciado */
-    .manage-content {
-        padding: 15px !important;
-    }
-
-    /* 3. Lecciones: Apilar contenido */
-    .lesson-row {
         flex-direction: column !important;
-        align-items: stretch !important;
-        padding: 15px !important;
+        gap: 15px !important;
     }
 
-    .lesson-left {
-        margin-bottom: 10px;
+    /* Fix para el Editor de Exámenes (QuizEditor) */
+    .quiz-editor-layout {
+        display: flex !important;
+        flex-direction: column !important;
     }
-
-    .lesson-right {
+    .quiz-editor-sidebar {
+        position: static !important;
         width: 100% !important;
-        justify-content: space-between !important;
-        border-top: 1px solid #eee;
-        padding-top: 10px !important;
+        order: -1; /* Pone el panel de "Agregar Pregunta" arriba */
+        margin-bottom: 20px;
     }
 
-    /* 4. MODALES: Forzar que entren en pantalla (Solución a image_952a2d) */
+    /* Fix para Tablas (Alumnos y Notas) */
+    .students-table, .students-table thead, .students-table tbody, .students-table th, .students-table td, .students-table tr {
+        display: block !important;
+    }
+    .students-table thead { display: none !important; } /* Ocultar cabecera */
+    .students-table tr {
+        margin-bottom: 15px;
+        border: 1px solid #eee !important;
+        border-radius: 12px;
+        padding: 10px;
+        background: white;
+    }
+    .students-table td {
+        text-align: right !important;
+        padding: 10px 5px !important;
+        border: none !important;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        white-space: normal !important; /* Permite que el texto baje si es largo */
+    }
+.students-table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        color: #217CA3;
+        margin-right: 10px;
+    }
+
+    /* Inputs que se desbordan (Drive links) */
+    input, textarea {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Modales */
     .custom-modal, .modal-content {
-        width: 92% !important;
-        max-width: none !important;
+        width: 95% !important;
         padding: 20px !important;
-        margin: 0 15px !important;
-    }
-
-    .custom-modal h2, .modal-header-simple h2 {
-        font-size: 1.1rem !important;
-    }
-
-    /* Forzar que los grids de 2 columnas dentro de modales se vuelvan 1 */
-    .custom-modal div[style*="display: grid"], 
-    .custom-modal div[style*="display:grid"] {
-        grid-template-columns: 1fr !important;
-        gap: 10px !important;
-    }
-
-    /* 5. RECURSOS: Solución a image_952a10 (Inputs amontonados) */
-    /* Buscamos el contenedor del formulario de recursos */
-    div[style*="gridTemplateColumns: '1fr 1fr'"],
-    div[style*="grid-template-columns: 1fr 1fr"] {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-    }
-
-    /* Ajuste de botones de acción en filas de recursos */
-    div[style*="display: 'flex'"][style*="justify-content: 'space-between'"] {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 15px !important;
-    }
-
-    /* 6. EVALUACIONES: Solución a image_952a29 (Botones desbordados) */
-    .quiz-card-container { /* Si agregas esta clase al div del map */
-        flex-direction: column !important;
-    }
-    
-    /* Selector genérico para las tarjetas de Quiz */
-    div[style*="borderLeft"] {
-        flex-direction: column !important;
-        align-items: stretch !important;
-        gap: 15px !important;
-    }
-
-    div[style*="display: 'flex'"][style*="gap: '10px'"] {
-        width: 100% !important;
-        flex-direction: column !important;
-    }
-
-    div[style*="display: 'flex'"][style*="gap: '10px'"] button {
-        width: 100% !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .header-titles h1 {
-        font-size: 1.1rem !important;
-    }
-    .btn-add-lesson {
-        width: 100%;
-        justify-content: center;
+        margin: 0 !important;
     }
 }

@@ -222,29 +222,78 @@ function AdminCourseContent() {
                 {activeTab === 'quizzes' && <QuizManager courseId={cleanId} />}
                 {activeTab === 'students' && (
                     <div className="students-view">
-                        <div className="view-header"><h3>Alumnos Inscritos</h3><button className="btn-add-lesson" onClick={() => setShowEnrollModal(true)} style={{backgroundColor: '#217CA3'}}><FaUserPlus /> Inscripción Manual</button></div>
+                        <div className="view-header">
+                            <h3>Alumnos Inscritos</h3>
+                            <button className="btn-add-lesson" onClick={() => setShowEnrollModal(true)} style={{backgroundColor: '#217CA3'}}>
+                                <FaUserPlus /> Inscripción Manual
+                            </button>
+                        </div>
+                        
                         <table className="students-table">
-                            <thead><tr><th>Estudiante</th><th>Progreso Total</th><th>Inscripción</th><th>Acciones</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Estudiante</th>
+                                    <th>Progreso Total</th>
+                                    <th>Inscripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 {students.map((st) => (
                                     <tr key={st.id}>
-                                        <td>
-                                            <div style={{display:'flex', alignItems:'center', gap:'10px'}}><div className="user-avatar-small">{st.names?.charAt(0)}</div><div><strong>{st.names} {st.lastNames}</strong><br/><small>{st.email}</small></div></div>
+                                        <td data-label="Estudiante">
+                                            <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
+                                                <div className="user-avatar-small">{st.names?.charAt(0)}</div>
+                                                <div style={{textAlign:'left'}}>
+                                                    <strong>{st.names} {st.lastNames}</strong><br/>
+                                                    <small style={{wordBreak:'break-all'}}>{st.email}</small>
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td><div className="progress-container-table"><div className="progress-bar-mini"><div className="fill" style={{width: `${st.progress || 0}%`}}></div></div><span>{st.progress || 0}%</span></div></td>
-                                        <td>{new Date(st.enrollment_date).toLocaleDateString()}</td>
-                                        <td><div className="action-buttons"><button className="btn-icon-action edit" onClick={() => { setEditingStudent(st); setNewProgress(st.progress || 0); setShowEditProgressModal(true); }}><FaEdit /></button><button className="btn-icon-action delete" onClick={() => { setStudentToDelete(st); setShowDeleteStudentConfirm(true); }}><FaUserTimes /></button></div></td>
+                                        <td data-label="Progreso">
+                                            <div className="progress-container-table">
+                                                <div className="progress-bar-mini">
+                                                    <div className="fill" style={{width: `${st.progress || 0}%`}}></div>
+                                                </div>
+                                                <span>{st.progress || 0}%</span>
+                                            </div>
+                                        </td>
+                                        <td data-label="Inscripción">{new Date(st.enrollment_date).toLocaleDateString()}</td>
+                                        <td data-label="Acciones">
+                                            <div className="action-buttons">
+                                                <button className="btn-icon-action edit" onClick={() => { setEditingStudent(st); setNewProgress(st.progress || 0); setShowEditProgressModal(true); }}><FaEdit /></button>
+                                                <button className="btn-icon-action delete" onClick={() => { setStudentToDelete(st); setShowDeleteStudentConfirm(true); }}><FaUserTimes /></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
-                        <div className="view-header" style={{borderTop:'1px solid #eee', paddingTop:'30px', marginTop:'30px'}}><h3><FaGraduationCap /> Calificaciones Obtenidas</h3></div>
+
+                        <div className="view-header" style={{borderTop:'1px solid #eee', paddingTop:'30px', marginTop:'30px'}}>
+                            <h3><FaGraduationCap /> Calificaciones</h3>
+                        </div>
+                        
                         <table className="students-table">
-                            <thead><tr style={{background:'#f8f9fa'}}><th>Alumno</th><th>Examen</th><th>Nota</th><th>Estado</th><th>Fecha</th><th>Reset</th></tr></thead>
+                            <thead>
+                                <tr style={{background:'#f8f9fa'}}>
+                                    <th>Alumno</th>
+                                    <th>Examen</th>
+                                    <th>Nota</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 {courseGrades.map((grade) => (
                                     <tr key={grade.id}>
-                                        <td>{grade.student_names}</td><td>{grade.examen_nombre}</td><td style={{fontWeight:'bold'}}>{grade.nota}</td><td>{grade.aprobado ? 'APROBADO' : 'DESAPROBADO'}</td><td>{new Date(grade.fecha).toLocaleDateString()}</td><td><button className="btn-icon-action delete" onClick={() => confirmDeleteGrade(grade)}><FaTrash /></button></td>
+                                        <td data-label="Alumno">{grade.student_names}</td>
+                                        <td data-label="Examen">{grade.examen_nombre}</td>
+                                        <td data-label="Nota" style={{fontWeight:'bold'}}>{grade.nota}</td>
+                                        <td data-label="Estado">{grade.aprobado ? 'APROBADO' : 'DESAPROBADO'}</td>
+                                        <td data-label="Reset">
+                                            <button className="btn-icon-action delete" onClick={() => confirmDeleteGrade(grade)}><FaTrash /></button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

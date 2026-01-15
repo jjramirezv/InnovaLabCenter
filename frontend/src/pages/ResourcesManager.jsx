@@ -124,7 +124,7 @@ function ResourcesManager({ courseId }) {
                             placeholder="https://drive.google.com/..."
                             value={newRes.url_externa}
                             onChange={e => setNewRes({...newRes, url_externa: e.target.value})}
-                            style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd', width:'100%', boxSizing:'border-box', outline:'none' }}
+                            style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ddd', width:'100%', boxSizing:'border-box' }}
                         />
                     </div>
                 </div>
