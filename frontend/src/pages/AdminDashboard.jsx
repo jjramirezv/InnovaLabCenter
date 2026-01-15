@@ -136,7 +136,8 @@ function AdminDashboard() {
         <div className="admin-container">
             <aside className="admin-sidebar">
                 <div className="admin-brand">
-                    <FaChalkboardTeacher /> <span>InnovaLab Center</span>
+                    <FaChalkboardTeacher /> 
+                    <span>InnovaLab Center Admin</span>
                 </div>
                 <nav className="admin-nav">
                     <button className={`nav-btn ${activeTab === 'cursos' ? 'active' : ''}`} onClick={() => setActiveTab('cursos')}>

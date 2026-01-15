@@ -193,9 +193,12 @@
         right: 10px;
     }
 }
+/* --- OPTIMIZACIÓN MÓVIL (CORRECCIÓN DE ESPACIO) --- */
 
 @media (max-width: 768px) {
-    .admin-container { flex-direction: column; }
+    .admin-container { 
+        flex-direction: column; 
+    }
     
     .admin-sidebar { 
         width: 100%; 
@@ -204,40 +207,60 @@
         position: sticky; 
         top: 0; 
         z-index: 1000; 
+        background-color: #211F30;
     }
     
-    .admin-brand { height: 60px; padding: 0 20px; width: auto; }
-    /* IMPORTANTE: Volvemos a mostrar los textos en el menú horizontal de móvil */
-    .admin-brand span,
-    .nav-btn span { 
-        display: inline !important; 
+    /* BLOQUE DE MARCA: Solo icono */
+    .admin-brand { 
+        height: 60px; 
+        width: 60px; /* Ancho fijo pequeño para el icono */
+        padding: 0; 
+        justify-content: center;
+        background: #1a1926;
+        flex-shrink: 0; /* Evita que se encoja más */
     }
 
+    /* OCULTAR TEXTO DE LA MARCA EN CELULAR */
+    .admin-brand span { 
+        display: none !important; 
+    }
+
+    /* NAVEGACIÓN: Ocupa todo el espacio restante */
     .admin-nav { 
         display: flex; 
         padding: 0; 
         overflow-x: auto; 
-        flex: 1;
+        flex: 1; /* Toma el espacio que dejó la marca */
     }
     
     .nav-btn { 
-        padding: 15px 20px; 
+        padding: 15px 10px; 
         white-space: nowrap; 
         border-left: none; 
         border-bottom: 3px solid transparent; 
         justify-content: center;
         flex: 1;
+        font-size: 0.85rem;
+        gap: 8px;
     }
-    .nav-btn.active { border-bottom: 3px solid #217CA3; }
 
-    /* Estilo para la burbuja de notificación en móvil */
+    /* MOSTRAR TEXTO DE LOS BOTONES (OPCIONAL) */
+    /* Si quieres que solo se vean iconos en los botones también, cambia a 'none' */
+    .nav-btn span { 
+        display: inline !important; 
+    }
+
+    .nav-btn.active { 
+        border-bottom: 3px solid #217CA3; 
+        background: rgba(33, 124, 163, 0.1);
+    }
+
     .notif-badge {
-        position: static;
         background: #E29930;
         color: white;
-        padding: 2px 8px;
-        border-radius: 10px;
+        padding: 2px 6px;
+        border-radius: 8px;
         font-size: 0.7rem;
-        margin-left: 8px;
+        margin-left: 5px;
     }
 }
