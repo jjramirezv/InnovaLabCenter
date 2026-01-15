@@ -87,49 +87,42 @@ exports.login = async (req, res) => {
 };
 
 // --- 3. LOGIN CON GOOGLE (CORREGIDO Y MEJORADO) ---
+// --- 3. LOGIN CON GOOGLE (CORREGIDO SIN IMAGEN DE PERFIL) ---
 exports.googleLogin = async (req, res) => {
     try {
-        // Recibimos imagen también si el frontend la manda
-        const { email, names, lastNames, googleId, imagen } = req.body; 
+        // Quitamos "imagen" de la recepción de datos
+        const { email, names, lastNames } = req.body; 
 
         // A. Buscamos si el usuario ya existe
         let user = await User.findByEmail(email);
 
         if (user) {
             // CASO 1: USUARIO EXISTE
-            // Verificamos si necesitamos actualizar su auth_provider a 'google'
-            // (Útil para usuarios antiguos que entraron con Google antes de tener esta columna)
             if (user.auth_provider !== 'google') {
                 try {
-                    // Actualización directa segura
                     await db.query('UPDATE users SET auth_provider = ? WHERE id = ?', ['google', user.id]);
-                    user.auth_provider = 'google'; // Actualizamos el objeto local
+                    user.auth_provider = 'google';
                 } catch (updateError) {
                     console.error("No se pudo actualizar auth_provider:", updateError);
                 }
             }
         } else {
-            // CASO 2: USUARIO NUEVO (Creación automática)
-            // Insertamos explícitamente 'google' en auth_provider
-            
-            // Nota: Aquí estoy usando una query directa para asegurar que los campos entren bien.
-            // Si prefieres usar User.create, asegúrate de que tu modelo reciba 'auth_provider' e 'imagen_perfil'.
+            // CASO 2: USUARIO NUEVO
+            // Eliminamos "imagen_perfil" de la lista de columnas y de los VALUES
             const [result] = await db.query(
                 `INSERT INTO users 
-                (nombres, apellidos, email, password, rol, auth_provider, imagen_perfil, created_at, is_verified) 
-                VALUES (?, ?, ?, NULL, 'estudiante', 'google', ?, NOW(), 1)`,
-                [names, lastNames, email, imagen || null]
+                (nombres, apellidos, email, password, rol, auth_provider, created_at, is_verified) 
+                VALUES (?, ?, ?, NULL, 'estudiante', 'google', NOW(), 1)`,
+                [names, lastNames, email]
             );
 
-            // Construimos el objeto usuario con el ID insertado
             user = {
                 id: result.insertId,
                 nombres: names,
                 apellidos: lastNames,
                 email: email,
                 rol: 'estudiante',
-                auth_provider: 'google',
-                imagen_perfil: imagen
+                auth_provider: 'google'
             };
         }
 
@@ -140,16 +133,15 @@ exports.googleLogin = async (req, res) => {
             { expiresIn: '1d' }
         );
 
-        // C. Respondemos al Frontend
+        // C. Respondemos al Frontend (Sin enviar imagen_perfil)
         res.json({
             message: 'Login con Google exitoso',
             token,
             user: {
                 id: user.id,
-                names: user.nombres,
+                names: `${user.nombres} ${user.apellidos}`,
                 role: user.rol || 'estudiante',
-                auth_provider: 'google', // ¡Clave para que el perfil oculte la contraseña!
-                imagen_perfil: user.imagen_perfil
+                auth_provider: 'google'
             }
         });
 
