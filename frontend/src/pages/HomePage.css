@@ -160,3 +160,119 @@
 }
 .theme-kids .course-tag, .theme-kids .btn-details { background-color: #E29930; }
 .theme-general .course-tag, .theme-general .btn-details { background-color: #217CA3; }
+
+/* --- OPTIMIZACIÓN MÓVIL: HOMEPAGE --- */
+
+@media (max-width: 768px) {
+    /* 1. Sidebar Flotante */
+    .sidebar {
+        position: fixed;
+        left: -260px; /* Escondido por defecto */
+        height: 100vh;
+        z-index: 2000;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.open {
+        left: 0; /* Aparece al dar click en FaBars */
+        width: 260px;
+    }
+
+    .sidebar.closed {
+        left: -260px;
+    }
+
+    /* 2. Header y Título */
+    .top-header {
+        padding: 0 15px;
+    }
+
+    .mobile-toggle {
+        display: block !important; /* Mostramos el botón de hamburguesa */
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #217CA3;
+        cursor: pointer;
+    }
+
+    .page-title {
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+    }
+
+    /* 3. Contenido y Grid */
+    .content-scroll {
+        padding: 15px;
+    }
+
+    .mini-hero {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .mini-hero h1 { font-size: 1.2rem; }
+
+    .courses-grid {
+        grid-template-columns: 1fr; /* Un curso por fila en celular */
+        gap: 20px;
+    }
+
+    .course-card {
+        max-width: 100%;
+    }
+
+    /* 4. Perfil de Usuario (UserProfile) */
+    .profile-view-card {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .profile-view-left {
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .profile-view-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+/* --- PARCHE PARA COURSEPAGE (DETALLES) --- */
+
+@media (max-width: 768px) {
+    /* Banner del curso */
+    div[style*="height: '350px'"] {
+        height: 220px !important;
+    }
+
+    div[style*="fontSize: '2.5rem'"] {
+        font-size: 1.5rem !important;
+    }
+
+    /* Contenedor de Información y Tarjeta de Pago */
+    div[style*="display: 'flex'"][style*="gap: '40px'"] {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    /* Forzar que las columnas ocupen el 100% */
+    div[style*="flex: 2"], div[style*="flex: 1"] {
+        min-width: 100% !important;
+    }
+
+    /* Sticky de la tarjeta de pago: Lo quitamos en móvil para que no flote raro */
+    div[style*="position: 'sticky'"] {
+        position: static !important;
+    }
+
+    /* Ajuste de los puntos de la ficha técnica */
+    div[style*="fontSize: '2.8rem'"] {
+        font-size: 2rem !important;
+    }
+}

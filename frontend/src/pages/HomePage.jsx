@@ -149,18 +149,19 @@ function HomePage() {
                 </div>
 
                 <nav className="sidebar-nav">
-                    <button className={`nav-item ${currentView === 'catalogo' ? 'active' : ''}`} onClick={() => setCurrentView('catalogo')}>
+                    <button className={`nav-item ${currentView === 'catalogo' ? 'active' : ''}`} 
+                        onClick={() => { setCurrentView('catalogo'); setIsSidebarOpen(false); }}>
                         <FaHome /> <span>Explorar Cursos</span>
                     </button>
-                    <button className={`nav-item ${currentView === 'mis_cursos' ? 'active' : ''}`} onClick={() => setCurrentView('mis_cursos')}>
+                    
+                    <button className={`nav-item ${currentView === 'mis_cursos' ? 'active' : ''}`} 
+                        onClick={() => { setCurrentView('mis_cursos'); setIsSidebarOpen(false); }}>
                         <FaBook /> <span>Mis Aprendizajes</span>
                     </button>
-                    <button className={`nav-item ${currentView === 'perfil' ? 'active' : ''}`} onClick={() => setCurrentView('perfil')}>
+                    
+                    <button className={`nav-item ${currentView === 'perfil' ? 'active' : ''}`} 
+                        onClick={() => { setCurrentView('perfil'); setIsSidebarOpen(false); }}>
                         <FaCog /> <span>Configuración</span>
-                    </button>
-                    <div className="nav-divider"></div>
-                    <button className="nav-item logout" onClick={handleLogout}>
-                        <FaSignOutAlt /> <span>Cerrar Sesión</span>
                     </button>
                 </nav>
 
