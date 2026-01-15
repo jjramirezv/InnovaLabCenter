@@ -175,6 +175,10 @@
 }/* --- REPARACIÓN MÓVIL FINAL (SIN ERRORES) --- */
 
 @media (max-width: 768px) {
+    .header-titles h1 {
+        max-width: 180px;   /* Más pequeño en celulares */
+        font-size: 1.1rem;
+    }
     /* 1. Recuperar Scroll de Pestañas */
     .manage-tabs {
         display: flex !important;
@@ -209,7 +213,7 @@
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 100% !important;
+        max-width: 70% !important;
     }
     .lesson-right {
         width: 100% !important;
@@ -228,7 +232,7 @@
         flex-direction: column !important;
     }
     input[type="url"], input[type="text"] {
-        width: 70% !important;
+        width: 100% !important;
         box-sizing: border-box !important;
     }
 
