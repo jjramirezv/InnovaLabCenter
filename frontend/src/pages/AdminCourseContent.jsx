@@ -224,26 +224,35 @@ function AdminCourseContent() {
     <div className="students-view">
         <div className="view-header"><h3>Alumnos Inscritos</h3><button className="btn-add-lesson" onClick={() => setShowEnrollModal(true)} style={{backgroundColor: '#217CA3'}}><FaUserPlus /> Inscripción Manual</button></div>
         <table className="students-table">
-            <thead><tr><th>Estudiante</th><th>Progreso</th><th>Inscripción</th><th>Acciones</th></tr></thead>
-            <tbody>
-                {students.map((st) => (
-                    <tr key={st.id}>
-                        <td data-label="Estudiante"> {/* <--- AGREGADO */}
-                            <div style={{display:'flex', alignItems:'center', gap:'10px'}}><div className="user-avatar-small">{st.names?.charAt(0)}</div><div style={{textAlign:'left'}}><strong>{st.names}</strong><br/><small style={{wordBreak:'break-all'}}>{st.email}</small></div></div>
-                        </td>
-                        <td data-label="Progreso"> {/* <--- AGREGADO */}
-                            <div className="progress-container-table"><span>{st.progress || 0}%</span></div>
-                        </td>
-                        <td data-label="Fecha"> {/* <--- AGREGADO */}
-                            {new Date(st.enrollment_date).toLocaleDateString()}
-                        </td>
-                        <td data-label="Acciones"> {/* <--- AGREGADO */}
-                            <div className="action-buttons"><button className="btn-icon-action edit" onClick={() => { setEditingStudent(st); setNewProgress(st.progress || 0); setShowEditProgressModal(true); }}><FaEdit /></button><button className="btn-icon-action delete" onClick={() => { setStudentToDelete(st); setShowDeleteStudentConfirm(true); }}><FaUserTimes /></button></div>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+    <thead>
+        <tr><th>Estudiante</th><th>Progreso</th><th>Fecha</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+        {students.map((st) => (
+            <tr key={st.id}>
+                {/* IMPORTANTE: data-label DEBE ser igual al CSS */}
+                <td data-label="Estudiante"> 
+                    <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
+                        <div className="user-avatar-small">{st.names?.charAt(0)}</div>
+                        <div style={{textAlign:'right'}}>
+                            <strong style={{fontSize:'0.9rem'}}>{st.names}</strong>
+                        </div>
+                    </div>
+                </td>
+                <td data-label="Progreso">
+                    <span style={{fontWeight:'bold'}}>{st.progress || 0}%</span>
+                </td>
+                <td data-label="Fecha">{new Date(st.enrollment_date).toLocaleDateString()}</td>
+                <td data-label="Acciones">
+                    <div className="action-buttons">
+                        <button className="btn-icon-action edit" onClick={() => { setEditingStudent(st); setNewProgress(st.progress || 0); setShowEditProgressModal(true); }}><FaEdit /></button>
+                        <button className="btn-icon-action delete" onClick={() => { setStudentToDelete(st); setShowDeleteStudentConfirm(true); }}><FaUserTimes /></button>
+                    </div>
+                </td>
+            </tr>
+        ))}
+    </tbody>
+</table>
         
         {/* Tabla de Calificaciones */}
         <div className="view-header" style={{marginTop:'30px'}}><h3>Calificaciones</h3></div>
