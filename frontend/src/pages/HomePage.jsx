@@ -33,19 +33,17 @@ function HomePage() {
     const [statusConfig, setStatusConfig] = useState({ type: 'success', title: '', message: '' });
 
     const getImageUrl = (url) => {
-        if (!url) return 'https://via.placeholder.com/300';
+        if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
 
-        // SI EL URL YA ES UN LINK COMPLETO (Cloudinary), devuélvelo tal cual
-        if (url.startsWith('http')) {
-            return url;
-        }
+        // 1. Si ya es un link de Cloudinary (empieza con http), úsalo directo
+        if (url.startsWith('http')) return url;
 
-        // SI EL URL ES VIEJO (relativo), úsalo con el backendUrl
-        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://innovalabcenter-production.up.railway.app';
+        // 2. Si es una ruta vieja (/uploads/...), apunta a tu BACKEND DE RAILWAY
+        // NUNCA USES LOCALHOST AQUÍ PARA PRODUCCIÓN
+        const backendUrl = 'https://innovalabcenter-production.up.railway.app';
         
-        // Asegúrate de que el url empiece con / si es relativo
-        const formattedUrl = url.startsWith('/') ? url : `/${url}`;
-        return `${backendUrl}${formattedUrl}`; 
+        const path = url.startsWith('/') ? url : `/${url}`;
+        return `${backendUrl}${path}`;
     };
 
     useEffect(() => {

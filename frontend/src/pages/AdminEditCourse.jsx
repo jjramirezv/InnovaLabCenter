@@ -81,25 +81,19 @@ function AdminEditCourse() {
         }
     };
 
-    // Helper imagen
     const getImageUrl = (url) => {
-    if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
+        if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
 
-    const cleanUrl = url.trim();
+        // 1. Si ya es un link de Cloudinary (empieza con http), úsalo directo
+        if (url.startsWith('http')) return url;
 
-    // 1. Si es Cloudinary (empieza con http), úsalo directo
-    if (cleanUrl.startsWith('http')) {
-        return cleanUrl;
-    }
-
-    // 2. Si es una ruta vieja (/uploads/...), usa el link de RAILWAY, NO localhost
-    const backendUrl = 'https://innovalabcenter-production.up.railway.app';
-    
-    // Aseguramos que no se dupliquen las barras /
-    const path = cleanUrl.startsWith('/') ? cleanUrl : `/${cleanUrl}`;
-    
-    return `${backendUrl}${path}`;
-};
+        // 2. Si es una ruta vieja (/uploads/...), apunta a tu BACKEND DE RAILWAY
+        // NUNCA USES LOCALHOST AQUÍ PARA PRODUCCIÓN
+        const backendUrl = 'https://innovalabcenter-production.up.railway.app';
+        
+        const path = url.startsWith('/') ? url : `/${url}`;
+        return `${backendUrl}${path}`;
+    };
 
     // Función para cerrar el modal y volver al admin
     const handleCloseSuccess = () => {

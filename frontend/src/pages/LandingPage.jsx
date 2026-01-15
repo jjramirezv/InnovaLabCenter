@@ -13,20 +13,18 @@ function LandingPage() {
     const [featuredCourses, setFeaturedCourses] = useState([]);
 
     const getImageUrl = (url) => {
-    // 1. Si no hay URL, ponemos una imagen de respaldo
-    if (!url) return 'https://via.placeholder.com/300?text=Curso+InnovaLab';
-    
-    // 2. Si la URL ya empieza con "http" (Cloudinary), la devolvemos tal cual
-    if (url.startsWith('http')) return url;
-    
-    // 3. Si es una ruta antigua (ej: /uploads/foto.jpg), apuntamos a Railway
-    // Usamos la variable de entorno o el link directo de producción
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'https://innovalabcenter-production.up.railway.app';
-    
-    // Aseguramos que la URL empiece con / para que no se rompa el link
-    const path = url.startsWith('/') ? url : `/${url}`;
-    return `${backendUrl}${path}`;
-};
+        if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
+
+        // 1. Si ya es un link de Cloudinary (empieza con http), úsalo directo
+        if (url.startsWith('http')) return url;
+
+        // 2. Si es una ruta vieja (/uploads/...), apunta a tu BACKEND DE RAILWAY
+        // NUNCA USES LOCALHOST AQUÍ PARA PRODUCCIÓN
+        const backendUrl = 'https://innovalabcenter-production.up.railway.app';
+        
+        const path = url.startsWith('/') ? url : `/${url}`;
+        return `${backendUrl}${path}`;
+    };
 
     useEffect(() => {
         const fetchCourses = async () => {
