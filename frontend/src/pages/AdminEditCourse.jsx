@@ -106,14 +106,16 @@ function AdminEditCourse() {
     return (
         <div className="edit-page-container">
             <header className="edit-header">
-                <button onClick={() => navigate('/admin')} className="btn-back-admin">
-                    <FaArrowLeft /> Volver al Panel
-                </button>
-                <h1>Editando: {course.titulo}</h1>
-                <button onClick={handleSubmit} className="btn-save-top">
-                    <FaSave /> Guardar Cambios
-                </button>
-            </header>
+            <button onClick={() => navigate('/admin')} className="btn-back-admin">
+                <FaArrowLeft /> <span>Panel</span> {/* Añadimos span opcional para ocultar texto en móviles si quieres */}
+            </button>
+            
+            <h1 title={course.titulo}>Editando: {course.titulo}</h1>
+            
+            <button onClick={handleSubmit} className="btn-save-top">
+                <FaSave /> <span>Guardar</span>
+            </button>
+        </header>
 
             <div className="edit-content">
                 <form className="edit-form" onSubmit={handleSubmit}>
