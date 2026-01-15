@@ -179,25 +179,65 @@ function AdminCourseContent() {
                 {activeTab === 'students' && (
                     <div className="students-view">
                         <div className="view-header">
-                            <h3>Alumnos</h3>
-                            <button className="btn-add-lesson" onClick={() => setShowEnrollModal(true)} style={{backgroundColor: '#217CA3'}}><FaUserPlus /> Inscripción Manual</button>
+                            <h3>Alumnos Inscritos</h3>
+                            <button className="btn-add-lesson" onClick={() => setShowEnrollModal(true)} style={{backgroundColor: '#217CA3'}}>
+                                <FaUserPlus /> Inscripción Manual
+                            </button>
                         </div>
+                        
                         <table className="students-table">
-                            <thead><tr><th>Estudiante</th><th>Progreso</th><th>Acciones</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Estudiante</th>
+                                    <th>Progreso</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 {students.map((st) => (
                                     <tr key={st.id}>
                                         <td data-label="Estudiante">
-                                            <div className="student-mobile-cell">
+                                            <div className="student-cell-mobile">
                                                 <div className="user-avatar-small">{st.names?.charAt(0)}</div>
-                                                <strong>{st.names}</strong>
+                                                <div>
+                                                    {/* Muestra nombres y apellidos completos */}
+                                                    <strong>{st.names} {st.lastNames}</strong>
+                                                </div>
                                             </div>
                                         </td>
-                                        <td data-label="Progreso">{st.progress || 0}%</td>
+                                        <td data-label="Progreso">
+                                            <strong>{st.progress || 0}%</strong>
+                                        </td>
+                                        <td data-label="Fecha">
+                                            {new Date(st.enrollment_date).toLocaleDateString()}
+                                        </td>
                                         <td data-label="Acciones">
                                             <div className="action-buttons">
-                                                <button className="btn-icon-action delete" onClick={() => { setStudentToDelete(st); setShowDeleteStudentConfirm(true); }}><FaUserTimes /></button>
+                                                <button className="btn-icon-action delete" onClick={() => { setStudentToDelete(st); setShowDeleteStudentConfirm(true); }}>
+                                                    <FaUserTimes />
+                                                </button>
                                             </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+
+                        {/* Calificaciones */}
+                        <div className="view-header" style={{marginTop:'30px'}}><h3>Calificaciones</h3></div>
+                        <table className="students-table">
+                            <thead><tr style={{background:'#f8f9fa'}}><th>Alumno</th><th>Examen</th><th>Nota</th><th>Reset</th></tr></thead>
+                            <tbody>
+                                {courseGrades.map((grade) => (
+                                    <tr key={grade.id}>
+                                        <td data-label="Alumno">{grade.student_names}</td>
+                                        <td data-label="Examen">{grade.examen_nombre}</td>
+                                        <td data-label="Nota" style={{fontWeight:'bold'}}>{grade.nota}</td>
+                                        <td data-label="Reset">
+                                            <button className="btn-icon-action delete" onClick={() => confirmDeleteGrade(grade)}>
+                                                <FaTrash />
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

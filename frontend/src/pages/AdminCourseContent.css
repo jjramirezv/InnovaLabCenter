@@ -203,7 +203,8 @@
         align-items: stretch !important;
     }
     .lesson-info {
-        max-width: 100% !important;
+        max-width: 100% !important; 
+        overflow: hidden; 
     }
     .lesson-info small {
         display: block !important;
@@ -216,7 +217,7 @@
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-        max-width: 70% !important;
+        max-width: 60% !important;
     }
     .lesson-right {
         width: 100% !important;
@@ -271,6 +272,19 @@
         justify-content: flex-end !important;
         max-width: 70% !important;
     }
+/* 4. EVALUACIONES (QuizManager): Formato vertical (image_952a29.jpg) */
+    .quiz-card-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 15px !important;
+        padding: 20px !important;
+    }
+    .quiz-card-row > div:first-child { width: 100% !important; } /* Info del Quiz */
+    .quiz-card-row div[style*="display: 'flex'"][style*="gap: '10px'"] {
+        flex-direction: column !important; /* Botones en columna */
+        width: 100% !important;
+    }
+    .quiz-card-row button { width: 100% !important; justify-content: center !important; }
 
     /* 5. QuizEditor: Arreglar desborde PUBLICADO/BORRADOR (image_968b2a.png) */
     .quiz-edit-header {
@@ -288,6 +302,14 @@
         order: -1 !important;
         margin-bottom: 20px !important;
     }
+    
+    .student-cell-mobile {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        text-align: right !important;
+        justify-content: flex-end !important;
+    }
 }
 
-/* --- REPARACIÓN MÓVIL FINAL --- */
+
