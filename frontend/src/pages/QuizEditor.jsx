@@ -123,7 +123,7 @@ function QuizEditor() {
     return (
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px', fontFamily: "'Poppins', sans-serif" }}>
             {/* HEADER PROFESIONAL */}
-            <header style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'30px', background:'white', padding:'15px 25px', borderRadius:'12px', boxShadow:'0 2px 10px rgba(0,0,0,0.05)' }}>
+            <header className="quiz-edit-header" style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'30px', background:'white', padding:'15px 25px', borderRadius:'12px', boxShadow:'0 2px 10px rgba(0,0,0,0.05)' }}>
                 <div style={{ display:'flex', alignItems:'center', gap:'15px' }}>
                     <button onClick={() => navigate(-1)} style={{ background:'#f0f0f0', border:'none', width:'40px', height:'40px', borderRadius:'50%', cursor:'pointer', color:'#666', display:'flex', alignItems:'center', justifyContent:'center' }}><FaArrowLeft /></button>
                     <div>

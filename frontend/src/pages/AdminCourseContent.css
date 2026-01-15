@@ -178,76 +178,119 @@
     align-items: center;
     margin-bottom: 20px;
 }
-/* --- REPARACIÓN MÓVIL AGRESIVA --- */
+/* --- REPARACIÓN MÓVIL NIVEL 2: CORRECCIÓN DE DESBORDAMIENTOS --- */
+/* --- REPARACIÓN MÓVIL NIVEL PRO --- */
+
 @media (max-width: 768px) {
-    .lesson-info small, 
-    .students-table td,
-    input {
-        word-break: break-all !important;
-        white-space: normal !important;
-    }
-    /* Forzar que CUALQUIER grid de 2 columnas se vuelva de 1 */
-    div[style*="grid-template-columns"], 
-    div[style*="gridTemplateColumns"],
-    .responsive-grid-2 {
-        grid-template-columns: 1fr !important;
+    /* 1. TABS: Recuperamos el scroll horizontal que se perdió */
+    .manage-tabs {
+        padding: 0 15px !important;
         display: flex !important;
-        flex-direction: column !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
         gap: 15px !important;
+        white-space: nowrap !important;
+        background: #fff !important;
+        border-bottom: 2px solid #eee !important;
+    }
+    .tab-btn {
+        flex-shrink: 0 !important;
+        padding: 15px 10px !important;
+        font-size: 0.9rem !important;
     }
 
-    /* Fix para el Editor de Exámenes (QuizEditor) */
-    .quiz-editor-layout {
-        display: flex !important;
+    /* 2. LECCIONES: Limpiamos los links de Drive que empujan todo */
+    .lesson-row {
         flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 15px !important;
     }
-    .quiz-editor-sidebar {
-        position: static !important;
+    .lesson-info {
         width: 100% !important;
-        order: -1; /* Pone el panel de "Agregar Pregunta" arriba */
-        margin-bottom: 20px;
+        max-width: 100% !important;
+        overflow: hidden;
+    }
+    .lesson-info strong {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .lesson-info small {
+        display: block !important;
+        width: 100% !important;
+        white-space: nowrap !important; /* No envuelve, lo corta elegantemente */
+        overflow: hidden !important;
+        text-overflow: ellipsis !important; /* Pone los "..." al final */
+        color: #217CA3 !important;
+        background: #f0f7fa;
+        padding: 4px 8px;
+        border-radius: 4px;
+    }
+    .lesson-right {
+        width: 100% !important;
+        margin-top: 15px;
+        justify-content: space-between !important;
+        padding-top: 10px;
+        border-top: 1px dashed #eee;
     }
 
-    /* Fix para Tablas (Alumnos y Notas) */
+    /* 3. EXÁMENES (QuizManager): Todo en una sola columna */
+    .quiz-card-row, 
+    div[style*="borderLeft"] { 
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 15px !important;
+        padding: 15px !important;
+    }
+    /* El badge de PUBLICADO / BORRADOR */
+    div[style*="background: quiz.estado"] {
+        align-self: flex-start !important;
+    }
+    /* Los botones de Editar/Borrar en columna */
+    div[style*="display: 'flex'"][style*="gap: '10px'"] {
+        flex-direction: column !important;
+        width: 100% !important;
+    }
+    div[style*="display: 'flex'"][style*="gap: '10px'"] button {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    /* 4. SEGUIMIENTO DE ALUMNOS: Tabla convertida en tarjetas */
     .students-table, .students-table thead, .students-table tbody, .students-table th, .students-table td, .students-table tr {
         display: block !important;
     }
-    .students-table thead { display: none !important; } /* Ocultar cabecera */
+    .students-table thead { display: none !important; } /* Ocultamos cabecera */
     .students-table tr {
-        margin-bottom: 15px;
+        margin-bottom: 20px !important;
         border: 1px solid #eee !important;
-        border-radius: 12px;
-        padding: 10px;
-        background: white;
+        border-radius: 12px !important;
+        padding: 10px !important;
+        background: #fff !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
     }
     .students-table td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
         text-align: right !important;
-        padding: 10px 5px !important;
-        border: none !important;
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        white-space: normal !important; /* Permite que el texto baje si es largo */
+        padding: 12px 8px !important;
+        border-bottom: 1px solid #f5f5f5 !important;
+        min-width: 0 !important;
     }
-.students-table td::before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        color: #217CA3;
+    .students-table td:last-child { border-bottom: none !important; }
+    .students-table td::before {
+        content: attr(data-label); /* Aquí se inyecta el nombre del campo */
+        font-weight: 800;
+        color: #211F30;
+        font-size: 0.85rem;
+        text-transform: uppercase;
         margin-right: 10px;
     }
 
-    /* Inputs que se desbordan (Drive links) */
-    input, textarea {
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-
-    /* Modales */
-    .custom-modal, .modal-content {
-        width: 95% !important;
-        padding: 20px !important;
-        margin: 0 !important;
+    /* Ajuste para que el nombre del alumno no rompa la tarjeta */
+    .user-avatar-small + div {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
