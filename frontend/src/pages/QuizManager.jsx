@@ -147,11 +147,21 @@ function QuizManager({ courseId }) {
                 )}
 
                 {quizzes.map(quiz => (
-                    <div key={quiz.id} style={{ 
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between', 
-                        padding: '20px', border: '1px solid #EEE', borderRadius: '10px', background: 'white',
-                        transition:'all 0.2s', borderLeft: quiz.estado === 'publicado' ? '5px solid #4CAF50' : '5px solid #FF9800'
-                    }}>
+                    <div 
+                        key={quiz.id} 
+                        className="quiz-card-row" // <--- AÑADE ESTA CLASE AQUÍ
+                        style={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'space-between', 
+                            padding: '20px', 
+                            border: '1px solid #EEE', 
+                            borderRadius: '10px', 
+                            background: 'white',
+                            transition:'all 0.2s', 
+                            borderLeft: quiz.estado === 'publicado' ? '5px solid #4CAF50' : '5px solid #FF9800'
+                        }}
+                    >
                         <div>
                             <strong style={{ display: 'block', color: '#333', fontSize:'1.1rem', marginBottom:'5px' }}>{quiz.titulo}</strong>
                             <div style={{ display:'flex', gap:'15px', color:'#666', fontSize:'0.9rem', alignItems:'center' }}>

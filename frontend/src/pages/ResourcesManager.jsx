@@ -105,7 +105,7 @@ function ResourcesManager({ courseId }) {
                     </div>
                 )}
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                <div className="responsive-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                     <div style={{ display:'flex', flexDirection:'column', gap:'8px' }}>
                         <label style={{fontWeight:'600', fontSize:'0.9rem', color:'#444'}}>Título del Material</label>
                         <input 
