@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import '../Auth.css';
-
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 function RegisterPage() {
     const [formData, setFormData] = useState({
         names: '', lastNames: '', email: '', password: '', phone: ''
@@ -53,6 +53,38 @@ function RegisterPage() {
         },
         onError: () => setError('Falló el registro con Google')
     });
+        const responseFacebook = async (response) => {
+        if (response.accessToken) {
+            try {
+                // Enviar al Backend de InnovaLab
+                // Facebook separa el nombre en response.name, 
+                // pero para ser más precisos con nombres/apellidos:
+                const names = response.name.split(' ')[0];
+                const lastNames = response.name.split(' ').slice(1).join(' ');
+
+                const res = await axios.post('/auth/facebook', {
+                    email: response.email,
+                    names: names,
+                    lastNames: lastNames || ' ',
+                    facebookId: response.id
+                });
+
+                // Guardamos datos localmente
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
+
+                // Redirección inteligente
+                redirectUser(res.data.user);
+
+            } catch (err) {
+                console.error(err);
+                setError('Error al registrar la cuenta con Facebook');
+            }
+        } else {
+            setError('No se pudo autenticar con Facebook');
+        }
+    };
+
 
     return (
         <div className="auth-container">
@@ -70,9 +102,17 @@ function RegisterPage() {
                         <FaGoogle className="icon" /> Registrarse con Google
                     </button>
                     
-                    <button type="button" className="social-btn facebook" onClick={() => alert('Próximamente')}>
-                        <FaFacebook className="icon" /> Registrarse con Facebook
-                    </button>
+                    <FacebookLogin
+                        appId="1547391983151344" 
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={responseFacebook}
+                        render={renderProps => (
+                            <button type="button" className="social-btn facebook" onClick={renderProps.onClick}>
+                                <FaFacebook className="icon" /> Continuar con Facebook
+                            </button>
+                        )}
+                    />
                 </div>
 
                 <div className="divider">

@@ -150,3 +150,64 @@ exports.googleLogin = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor con Google' });
     }
 };
+// --- 4. LOGIN CON FACEBOOK (CORREGIDO SIN IMAGEN) ---
+exports.facebookLogin = async (req, res) => {
+    try {
+        // Facebook envía los datos; nosotros solo tomamos lo necesario
+        const { email, names, lastNames } = req.body; 
+
+        if (!email) {
+            return res.status(400).json({ message: 'No se pudo obtener el correo de Facebook' });
+        }
+
+        // A. Buscamos si el usuario ya existe
+        let user = await User.findByEmail(email);
+
+        if (user) {
+            // Si existe pero entró por otro medio, actualizamos a 'facebook'
+            if (user.auth_provider !== 'facebook') {
+                await db.query('UPDATE users SET auth_provider = ? WHERE id = ?', ['facebook', user.id]);
+                user.auth_provider = 'facebook';
+            }
+        } else {
+            // B. Si es nuevo, lo creamos (SIN columna imagen_perfil)
+            const [result] = await db.query(
+                `INSERT INTO users 
+                (nombres, apellidos, email, password, rol, auth_provider, created_at, is_verified) 
+                VALUES (?, ?, ?, NULL, 'estudiante', 'facebook', NOW(), 1)`,
+                [names, lastNames, email]
+            );
+
+            user = {
+                id: result.insertId,
+                nombres: names,
+                apellidos: lastNames,
+                email: email,
+                rol: 'estudiante',
+                auth_provider: 'facebook'
+            };
+        }
+
+        // C. Generar Token JWT
+        const token = jwt.sign(
+            { id: user.id, role: user.rol || 'estudiante' }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: '1d' }
+        );
+
+        res.json({
+            message: 'Login con Facebook exitoso',
+            token,
+            user: {
+                id: user.id,
+                names: `${user.nombres} ${user.apellidos}`,
+                role: user.rol || 'estudiante',
+                auth_provider: 'facebook'
+            }
+        });
+
+    } catch (error) {
+        console.error("Error en facebookLogin:", error);
+        res.status(500).json({ message: 'Error en el servidor con Facebook' });
+    }
+};
