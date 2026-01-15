@@ -165,7 +165,7 @@ function CourseLearn() {
             <aside className="classroom-sidebar">
                 <div className="sidebar-brand">
                     <button onClick={() => navigate('/home')} className="btn-back"><FaArrowLeft /></button>
-                    <span>Aula Virtual</span>
+                    <span>Aula Virtual</span> {/* Asegúrate de que esté dentro de un <span> */}
                 </div>
                 <div className="sidebar-menu">
                     <div className="menu-category">NAVEGACIÓN</div>

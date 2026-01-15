@@ -221,3 +221,118 @@
     background: white;
     border-radius: 16px;
 }   
+
+/* --- OPTIMIZACIÓN MÓVIL: AULA VIRTUAL --- */
+
+@media (max-width: 768px) {
+    .classroom-container {
+        flex-direction: column; /* Menú arriba, contenido abajo */
+    }
+
+    /* 1. SIDEBAR: Convertido en barra superior horizontal */
+    .classroom-sidebar {
+        width: 100%;
+        height: auto;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .sidebar-brand {
+        height: 60px;
+        justify-content: flex-start;
+    }
+    
+    .sidebar-brand span { display: none; } /* Ocultar "Aula Virtual" para ganar espacio */
+
+    .menu-category { display: none; } /* Ocultar "NAVEGACIÓN" */
+
+    .sidebar-menu {
+        display: flex;
+        overflow-x: auto;
+        background: #1a1926;
+    }
+
+    .menu-item {
+        padding: 15px;
+        justify-content: center;
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        flex: 1;
+    }
+
+    .menu-item.active {
+        border-left-color: transparent;
+        border-bottom-color: #E29930;
+    }
+
+    /* 2. HEADER DEL CURSO */
+    .classroom-header {
+        padding: 15px 20px;
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .classroom-header h2 { font-size: 1.1rem; }
+    .user-status { width: 100%; text-align: center; }
+
+    /* 3. GRID DE APRENDIZAJE (Video + Lista) */
+    .content-area {
+        padding: 15px;
+    }
+
+    .learning-grid {
+        flex-direction: column; /* Video arriba, lista abajo */
+        gap: 20px;
+    }
+
+    /* Visor de Video/Recurso */
+    .main-stage {
+        flex: none;
+        min-height: 250px;
+    }
+
+    .viewer-card {
+        padding: 20px;
+    }
+
+    .viewer-title { font-size: 1.2rem; }
+
+    /* Lista de Lecciones (Playlist) */
+    .playlist-section {
+        flex: none;
+        max-height: 400px; /* Evita que la página sea infinita */
+    }
+
+    /* 4. RECURSOS Y EXÁMENES */
+    .resources-grid {
+        grid-template-columns: 1fr; /* Una columna en móvil */
+    }
+
+    .resource-card {
+        padding: 15px;
+    }
+
+    /* Ajuste para las tarjetas de examen */
+    div[style*="display: 'flex'"][style*="justify-content: 'space-between'"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .viewer-card {
+        background: transparent;
+        backdrop-filter: none;
+        border: none;
+    }
+    
+    .btn-access {
+        width: 100%;
+        justify-content: center;
+    }
+}
