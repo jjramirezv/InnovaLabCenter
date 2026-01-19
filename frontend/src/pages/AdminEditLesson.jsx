@@ -16,7 +16,7 @@ function AdminEditLesson() {
         video_url: '',
         duracion: '',
         orden: 0,
-        descripcion: '' // Nuevo campo
+        descripcion: ''
     });
 
     useEffect(() => {
@@ -30,7 +30,6 @@ function AdminEditLesson() {
                 const config = { headers: { Authorization: `Bearer ${token}` } };
                 
                 const res = await axios.get(`/courses/lessons/${lessonId}`, config);
-                // Aseguramos que descripción no sea null para evitar warning de React
                 setLesson({ ...res.data, descripcion: res.data.descripcion || '' });
             } catch (error) {
                 console.error("Error cargando lección:", error);
@@ -120,7 +119,6 @@ return (
                 </form>
             </div>
 
-            {/* MODAL DE ÉXITO */}
             {showSuccess && (
                 <div className="success-overlay">
                     <div className="success-modal">

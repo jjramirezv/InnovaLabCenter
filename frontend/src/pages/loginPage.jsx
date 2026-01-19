@@ -12,28 +12,23 @@ function LoginPage() {
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    // --- FUNCIÓN INTELIGENTE DE REDIRECCIÓN ---
     const redirectUser = (user) => {
-        // Aquí es donde ocurre la magia:
         if (user.role === 'admin') {
-            navigate('/admin'); // Si es jefe -> Panel de Control
+            navigate('/admin'); 
         } else {
-            navigate('/home');  // Si es estudiante -> Catálogo de Cursos
+            navigate('/home');  
         }
     };
 
-    // 1. INICIO DE SESIÓN MANUAL
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         try {
             const response = await axios.post('/auth/login', formData);
             
-            // Guardamos datos
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.user));
             
-            // Usamos la redirección inteligente
             redirectUser(response.data.user);
 
         } catch (err) {
@@ -41,17 +36,14 @@ function LoginPage() {
         }
     };
 
-    // 2. INICIO DE SESIÓN CON GOOGLE (HOOK)
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             try {
-                // Obtener datos del usuario desde Google
                 const userInfo = await axios.get(
                     'https://www.googleapis.com/oauth2/v3/userinfo',
                     { headers: { Authorization: `Bearer ${tokenResponse.access_token}` } }
                 );
                 
-                // Enviar al Backend de InnovaLab
                 const res = await axios.post('/auth/google', {
                     email: userInfo.data.email,
                     names: userInfo.data.given_name,
@@ -59,11 +51,9 @@ function LoginPage() {
                     googleId: userInfo.data.sub
                 });
 
-                // Guardamos datos
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', JSON.stringify(res.data.user));
 
-                // Usamos la redirección inteligente también aquí
                 redirectUser(res.data.user);
 
             } catch (err) {
@@ -76,9 +66,6 @@ function LoginPage() {
     const responseFacebook = async (response) => {
         if (response.accessToken) {
             try {
-                // Enviar al Backend de InnovaLab
-                // Facebook separa el nombre en response.name, 
-                // pero para ser más precisos con nombres/apellidos:
                 const names = response.name.split(' ')[0];
                 const lastNames = response.name.split(' ').slice(1).join(' ');
 
@@ -89,11 +76,9 @@ function LoginPage() {
                     facebookId: response.id
                 });
 
-                // Guardamos datos localmente
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', JSON.stringify(res.data.user));
 
-                // Redirección inteligente
                 redirectUser(res.data.user);
 
             } catch (err) {
@@ -115,7 +100,6 @@ function LoginPage() {
 
                 {error && <div className="error-banner">{error}</div>}
 
-                {/* BOTONES SOCIALES PERSONALIZADOS */}
                 <div className="social-buttons-container">
                     <button type="button" className="social-btn google" onClick={() => googleLogin()}>
                         <FaGoogle className="icon" /> Continuar con Google

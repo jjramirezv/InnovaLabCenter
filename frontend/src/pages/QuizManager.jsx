@@ -10,7 +10,6 @@ function QuizManager({ courseId }) {
     const navigate = useNavigate();
     const [quizzes, setQuizzes] = useState([]);
     
-    // Estados para Crear Examen
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [newQuiz, setNewQuiz] = useState({
         titulo: '',
@@ -20,11 +19,9 @@ function QuizManager({ courseId }) {
         fecha_limite: ''
     });
 
-    // Estados de UI
     const [errorMsg, setErrorMsg] = useState('');
     const [successMsg, setSuccessMsg] = useState('');
     
-    // Modal de Borrado
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [quizToDelete, setQuizToDelete] = useState(null);
 
@@ -32,11 +29,9 @@ function QuizManager({ courseId }) {
         fetchQuizzes();
     }, [courseId]);
 
-    // --- CORRECCIÓN 1: ENVIAR TOKEN AL OBTENER LISTA ---
     const fetchQuizzes = async () => {
         try {
             const token = localStorage.getItem('token');
-            // Si no hay token, probablemente deba loguearse de nuevo, pero intentamos igual
             const config = { headers: { Authorization: `Bearer ${token}` } };
             
             const res = await axios.get(`/quizzes/course/${courseId}`, config);
@@ -46,7 +41,6 @@ function QuizManager({ courseId }) {
         }
     };
 
-    // --- CORRECCIÓN 2: ASEGURAR TOKEN AL CREAR ---
     const handleCreateQuiz = async (e) => {
         e.preventDefault();
         setErrorMsg('');
@@ -114,7 +108,6 @@ function QuizManager({ courseId }) {
     return (
         <div style={{ background: '#fff', padding: '30px', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', marginTop: '30px' }}>
             
-            {/* CABECERA */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '25px', borderBottom: '1px solid #eee', paddingBottom: '15px' }}>
                 <h3 style={{ color: '#211F30', fontSize:'1.2rem', display:'flex', alignItems:'center', gap:'10px', margin:0 }}>
                     <FaClipboardList color="#E29930"/> Evaluaciones y Exámenes
@@ -130,14 +123,12 @@ function QuizManager({ courseId }) {
                 </button>
             </div>
 
-            {/* MENSAJES */}
             {successMsg && (
                 <div style={{ background: '#E8F5E9', color: '#2E7D32', padding: '15px', borderRadius: '8px', marginBottom: '20px', display:'flex', alignItems:'center', gap:'10px' }}>
                     <FaCheckCircle /> {successMsg}
                 </div>
             )}
 
-            {/* LISTA DE EXÁMENES */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                 {quizzes.length === 0 && (
                     <div style={{ textAlign:'center', padding:'40px', color:'#999', background:'#FAFAFA', borderRadius:'12px', border:'1px dashed #ddd' }}>
@@ -149,7 +140,7 @@ function QuizManager({ courseId }) {
                 {quizzes.map(quiz => (
                     <div 
                         key={quiz.id} 
-                        className="quiz-card-row" // <--- AÑADE ESTA CLASE AQUÍ
+                        className="quiz-card-row" 
                         style={{ 
                             display: 'flex', 
                             alignItems: 'center', 
@@ -208,7 +199,6 @@ function QuizManager({ courseId }) {
                 ))}
             </div>
 
-            {/* MODAL CREAR EXAMEN */}
             {showCreateModal && (
                 <div className="custom-modal-overlay" style={{position:'fixed', top:0, left:0, width:'100%', height:'100%', background:'rgba(0,0,0,0.5)', display:'flex', justifyContent:'center', alignItems:'center', zIndex:1000}}>
                     <div className="custom-modal" style={{background:'white', padding:'30px', borderRadius:'16px', width:'500px', boxShadow:'0 10px 30px rgba(0,0,0,0.2)'}}>
@@ -236,7 +226,6 @@ function QuizManager({ courseId }) {
                 </div>
             )}
 
-            {/* MODAL ELIMINAR EXAMEN */}
             {showDeleteModal && (
                 <div className="custom-modal-overlay" style={{position:'fixed', top:0, left:0, width:'100%', height:'100%', background:'rgba(0,0,0,0.5)', display:'flex', justifyContent:'center', alignItems:'center', zIndex:1000}}>
                     <div style={{background:'white', padding:'30px', borderRadius:'16px', width:'380px', textAlign:'center', boxShadow:'0 10px 30px rgba(0,0,0,0.2)'}}>

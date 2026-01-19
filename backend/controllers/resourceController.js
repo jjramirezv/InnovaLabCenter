@@ -1,10 +1,9 @@
 const db = require('../config/db');
 
-// --- OBTENER RECURSOS DE UN CURSO ---
+// 1. OBTENER RECURSOS DE UN CURSO 
 exports.getResourcesByCourse = async (req, res) => {
     try {
         const { courseId } = req.params;
-        // Limpiamos el ID por si viene con ":"
         const cleanId = courseId.replace(':', '');
 
         const [rows] = await db.query(
@@ -18,7 +17,7 @@ exports.getResourcesByCourse = async (req, res) => {
     }
 };
 
-// --- AGREGAR RECURSO (Archivo Cloudinary o Link Externo) ---
+// 2. AGREGAR RECURSO (Archivo Cloudinary o Link Externo)
 exports.addResource = async (req, res) => {
     try {
         const { courseId } = req.params;
@@ -32,10 +31,8 @@ exports.addResource = async (req, res) => {
             if (!req.file) {
                 return res.status(400).json({ message: 'Debes seleccionar un archivo para subir.' });
             }
-            // Cloudinary nos devuelve la URL completa en req.file.path
             urlFinal = req.file.path; 
         } else {
-            // Si es un link (YouTube, Drive, etc.)
             if (!url_externa) {
                 return res.status(400).json({ message: 'Debes ingresar una URL válida.' });
             }
@@ -55,15 +52,10 @@ exports.addResource = async (req, res) => {
     }
 };
 
-// --- ELIMINAR RECURSO ---
+// 3. ELIMINAR RECURSO 
 exports.deleteResource = async (req, res) => {
     try {
         const { id } = req.params;
-
-        // IMPORTANTE: Ya no usamos fs.unlinkSync. 
-        // En Railway la carpeta /uploads no existe y causaba Error 500.
-        // El archivo ahora vive en Cloudinary o es un link externo.
-        
         const [result] = await db.execute('DELETE FROM resources WHERE id = ?', [id]);
 
         if (result.affectedRows === 0) {

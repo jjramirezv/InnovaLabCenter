@@ -1,13 +1,12 @@
-// backend/routes/resourceRoutes.js
 const express = require('express');
 const router = express.Router();
 const resourceController = require('../controllers/resourceController');
-const upload = require('../middleware/upload'); // Asegúrate de tener este middleware (el mismo de cursos)
+const upload = require('../middleware/upload');
 
 // Rutas
 router.get('/course/:courseId', resourceController.getResourcesByCourse);
 
-// Nota: 'archivo' es el nombre del campo que enviaremos desde el formulario frontend
+// Nota: 'archivo' es el nombre del campo que se enviará desde el formulario frontend
 router.post('/course/:courseId', upload.single('archivo'), resourceController.addResource);
 
 router.delete('/:id', resourceController.deleteResource);

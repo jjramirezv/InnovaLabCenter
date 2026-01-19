@@ -1,6 +1,6 @@
 const db = require('../config/db');
 
-// 1. NOTAS POR CURSO (Sincronizado con student_id y fecha_intento)
+// 1. NOTAS POR CURSO 
 exports.getResultsByCourse = async (req, res) => {
     try {
         const { courseId } = req.params;
@@ -37,7 +37,7 @@ exports.deleteQuizAttempt = async (req, res) => {
     } catch (error) { res.status(500).json({ message: 'Error al borrar nota' }); }
 };
 
-// 3. ENVIAR EXAMEN (Lógica de Progreso con student_id)
+// 3. ENVIAR EXAMEN 
 exports.submitQuiz = async (req, res) => {
     try {
         const { quizId, answers } = req.body; 

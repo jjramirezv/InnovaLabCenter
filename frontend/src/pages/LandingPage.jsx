@@ -14,14 +14,8 @@ function LandingPage() {
 
     const getImageUrl = (url) => {
         if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
-
-        // 1. Si ya es un link de Cloudinary (empieza con http), úsalo directo
         if (url.startsWith('http')) return url;
-
-        // 2. Si es una ruta vieja (/uploads/...), apunta a tu BACKEND DE RAILWAY
-        // NUNCA USES LOCALHOST AQUÍ PARA PRODUCCIÓN
         const backendUrl = 'https://innovalabcenter-production.up.railway.app';
-        
         const path = url.startsWith('/') ? url : `/${url}`;
         return `${backendUrl}${path}`;
     };
@@ -52,7 +46,6 @@ function LandingPage() {
                 </div>
             </nav>
 
-            {/* HERO SECTION MEJORADO */}
             <header className="lp-hero">
                 <div className="lp-hero-content">
                     <div className="badge-new">🚀 Nueva Plataforma Educativa</div>
@@ -72,21 +65,18 @@ function LandingPage() {
                     </div>
                 </div>
                 
-                {/* IMAGEN HERO CORREGIDA */}
                 <div className="lp-hero-image-container">
                     <div className="floating-card c1"><FaWifi /> IoT Expert</div>
                     <div className="floating-card c2"><FaCube /> Impresión 3D</div>
-                    {/* Usamos una imagen con fondo para que resalte más */}
                     <img 
                         src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop" 
                         alt="Estudiante Mecatrónica" 
                         className="main-hero-img"
                     />
-                    <div className="blob-bg"></div> {/* Fondo decorativo detrás de la imagen */}
+                    <div className="blob-bg"></div>
                 </div>
             </header>
 
-            {/* CATEGORÍAS */}
             <section className="lp-categories">
                 <h2>¿Qué quieres aprender hoy?</h2>
                 <div className="categories-grid">
@@ -97,7 +87,6 @@ function LandingPage() {
                 </div>
             </section>
 
-            {/* CURSOS DESTACADOS */}
             <section id="cursos-destacados" className="lp-featured">
                 <div className="section-header">
                     <h2>Cursos Más Populares</h2>
@@ -128,7 +117,6 @@ function LandingPage() {
                 </div>
             </section>
 
-            {/* FOOTER CON CONTACTO WHATSAPP */}
             <footer className="lp-footer">
                 <div className="footer-content">
                     <div className="footer-left">
@@ -140,9 +128,8 @@ function LandingPage() {
                         <h3>¿Tienes dudas? ¡Hablemos!</h3>
                         <p>Escríbenos directamente a nuestro WhatsApp corporativo:</p>
                         
-                        {/* BOTÓN WHATSAPP */}
                         <a 
-                            href="https://wa.me/51987564941"  // cambiar número al de la empresa
+                            href="https://wa.me/51987564941"  
                             target="_blank" 
                             rel="noreferrer" 
                             className="btn-whatsapp"

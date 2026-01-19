@@ -2,7 +2,7 @@ const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const multer = require('multer');
 
-// 1. Configuración de Cloudinary (Usa las variables que ya pusiste en Railway)
+// 1. Configuración de Cloudinary (ambientado para railway)
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
   api_key: process.env.CLOUDINARY_KEY,
@@ -22,9 +22,8 @@ const storage = new CloudinaryStorage({
 // 3. Configuración final de Multer
 const upload = multer({ 
     storage: storage,
-    limits: { fileSize: 1024 * 1024 * 50 }, // Mantengo tus 50MB
+    limits: { fileSize: 1024 * 1024 * 50 }, // Se mantiene los 50MB
     fileFilter: function (req, file, cb) {
-        // Aceptamos el archivo
         cb(null, true);
     }
 });

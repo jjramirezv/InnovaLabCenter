@@ -50,7 +50,7 @@ function AdminEditCourse() {
         if (e.target.files[0]) setSelectedFile(e.target.files[0]);
     };
 
-    // --- GUARDAR CAMBIOS ---
+    // GUARDAR CAMBIOS 
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -83,19 +83,12 @@ function AdminEditCourse() {
 
     const getImageUrl = (url) => {
         if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
-
-        // 1. Si ya es un link de Cloudinary (empieza con http), úsalo directo
         if (url.startsWith('http')) return url;
-
-        // 2. Si es una ruta vieja (/uploads/...), apunta a tu BACKEND DE RAILWAY
-        // NUNCA USES LOCALHOST AQUÍ PARA PRODUCCIÓN
         const backendUrl = 'https://innovalabcenter-production.up.railway.app';
-        
         const path = url.startsWith('/') ? url : `/${url}`;
         return `${backendUrl}${path}`;
     };
 
-    // Función para cerrar el modal y volver al admin
     const handleCloseSuccess = () => {
         setShowSuccessModal(false);
         navigate('/admin');
@@ -107,7 +100,7 @@ function AdminEditCourse() {
         <div className="edit-page-container">
             <header className="edit-header">
             <button onClick={() => navigate('/admin')} className="btn-back-admin">
-                <FaArrowLeft /> <span>Panel</span> {/* Añadimos span opcional para ocultar texto en móviles si quieres */}
+                <FaArrowLeft /> <span>Panel</span> 
             </button>
             
             <h1 title={course.titulo}>Editando: {course.titulo}</h1>
@@ -192,7 +185,6 @@ function AdminEditCourse() {
 
             </div>
 
-            {/* --- MODAL DE ÉXITO PERSONALIZADO --- */}
             {showSuccessModal && (
                 <div className="success-overlay">
                     <div className="success-modal">

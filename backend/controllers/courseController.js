@@ -1,7 +1,7 @@
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
 
-// --- 1. LISTAR CURSOS (Público) ---
+// 1. LISTAR CURSOS (Público)
 exports.getAllCourses = async (req, res) => {
     try {
         const [rows] = await db.query('SELECT * FROM courses');
@@ -11,7 +11,7 @@ exports.getAllCourses = async (req, res) => {
     }
 };
 
-// --- 2. OBTENER CURSO POR ID ---
+// 2. OBTENER CURSO POR ID
 exports.getCourseById = async (req, res) => {
     try {
         const cleanId = req.params.id.replace(':', '');
@@ -23,7 +23,7 @@ exports.getCourseById = async (req, res) => {
     }
 };
 
-// --- 3. GESTIÓN DE LECCIONES ---
+// 3. GESTIÓN DE LECCIONES
 exports.getCourseLessons = async (req, res) => {
     try {
         const cleanId = req.params.id.replace(':', '');
@@ -69,13 +69,13 @@ exports.deleteLesson = async (req, res) => {
     } catch (error) { res.status(500).json({ message: 'Error al eliminar' }); }
 };
 
-// --- 4. GESTIÓN DE CURSOS (Crear/Editar/Borrar) ---
+// 4. GESTIÓN DE CURSOS (Crear/Editar/Borrar) 
 
 exports.createCourse = async (req, res) => {
     try {
         const { titulo, descripcion, precio, nivel_objetivo } = req.body;
         
-        // CORRECCIÓN CLOUDINARY:
+        // CLOUDINARY:
         // req.file.path contiene la URL completa de Cloudinary (https://res.cloudinary.com/...)
         const imagen = req.file ? req.file.path : 'https://via.placeholder.com/300';
 
@@ -96,7 +96,7 @@ exports.updateCourse = async (req, res) => {
         const cleanId = req.params.id.replace(':', '');
         const { titulo, descripcion, precio, nivel_objetivo, imagen_actual, modalidad, duracion, certificado, requisitos } = req.body;
         
-        // Si hay una nueva imagen, usamos req.file.path (Cloudinary), si no, mantenemos la actual
+        // Si hay una nueva imagen, se usa req.file.path (Cloudinary), si no, se mantiene la actual
         let imagen = req.file ? req.file.path : imagen_actual;
         
         await db.execute(
@@ -113,13 +113,12 @@ exports.updateCourse = async (req, res) => {
 exports.deleteCourse = async (req, res) => {
     try {
         const cleanId = req.params.id.replace(':', '');
-        // Ya no usamos fs.unlinkSync aquí, evitamos el Error 500
         await db.execute('DELETE FROM courses WHERE id = ?', [cleanId]);
         res.json({ message: 'Curso eliminado' });
     } catch (error) { res.status(500).json({ message: 'Error al eliminar' }); }
 };
 
-// --- 5. GESTIÓN DE ESTUDIANTES (Frontend Alumno) ---
+// 5. GESTIÓN DE ESTUDIANTES (Frontend Alumno) 
 exports.enrollStudent = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -140,7 +139,7 @@ exports.checkEnrollment = async (req, res) => {
     } catch (error) { res.status(500).json({ message: 'Error verificando' }); }
 };
 
-// --- 6. GESTIÓN DE ESTUDIANTES (Panel Admin) ---
+// 6. GESTIÓN DE ESTUDIANTES (Panel Admin) 
 
 exports.getEnrolledStudents = async (req, res) => {
     try {
@@ -184,7 +183,7 @@ exports.updateStudentProgress = async (req, res) => {
     } catch (error) { res.status(500).json({ message: 'Error al actualizar progreso' }); }
 };
 
-// --- 7. ALTA EXPRESS ---
+// 7. ALTA EXPRESS 
 exports.adminEnrollStudent = async (req, res) => {
     try {
         const cleanId = req.params.id.replace(':', ''); 

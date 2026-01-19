@@ -9,8 +9,6 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminEditCourse from './pages/AdminEditCourse';
 import AdminCourseContent from './pages/AdminCourseContent';
 import AdminEditLesson from './pages/AdminEditLesson';
-
-// CORRECCIÓN AQUÍ: Importando los componentes del Quiz que faltaban
 import QuizEditor from './pages/QuizEditor';
 import QuizTaker from './pages/QuizTaker';
 

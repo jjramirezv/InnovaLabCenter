@@ -11,7 +11,6 @@ function QuizEditor() {
     const { id } = useParams();
     const navigate = useNavigate();
     
-    // Limpieza de ID blindada
     const cleanId = id ? id.toString().split(':').filter(Boolean).pop() : ''; 
 
     const [quiz, setQuiz] = useState(null);

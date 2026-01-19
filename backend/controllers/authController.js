@@ -1,9 +1,9 @@
-const User = require('../models/User'); // Asegúrate de que User.js tenga los métodos create y findByEmail
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const db = require('../config/db'); // Necesitamos acceso directo a la DB para actualizaciones manuales
+const db = require('../config/db'); 
 
-// --- 1. REGISTRO LOCAL (Correo y Contraseña) ---
+// 1. REGISTRO LOCAL (Correo y Contraseña)
 exports.register = async (req, res) => {
     console.log("Cuerpo recibido:", req.body);
     try {
@@ -19,9 +19,9 @@ exports.register = async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // C. Guardar en BD (Asegurando auth_provider = 'local')
-        // Nota: Si tu modelo User.create no soporta auth_provider, deberás agregarlo en la query INSERT del modelo.
-        // Aquí asumimos que User.create maneja los campos que le pasas o que la DB tiene 'local' como default.
+        // C. Guardar en BD (Asegurar auth_provider = 'local')
+        // Nota: Si el modelo User.create no soporta auth_provider, se deberá agregar en la query INSERT del modelo.
+        // Aquí se asume que User.create maneja los campos que le pasas o que la DB tiene 'local' como default.
         await User.create({
             names,
             lastNames,
@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
     }
 };
 
-// --- 2. LOGIN LOCAL ---
+// 2. LOGIN LOCAL 
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -76,7 +76,7 @@ exports.login = async (req, res) => {
                 id: user.id,
                 names: user.nombres,
                 role: user.rol,
-                auth_provider: user.auth_provider || 'local' // Enviamos esto para el frontend
+                auth_provider: user.auth_provider || 'local' // Envía esto para el frontend
             }
         });
 
@@ -86,8 +86,7 @@ exports.login = async (req, res) => {
     }
 };
 
-// --- 3. LOGIN CON GOOGLE (CORREGIDO Y MEJORADO) ---
-// --- 3. LOGIN CON GOOGLE (CORREGIDO SIN IMAGEN DE PERFIL) ---
+// 3. LOGIN CON GOOGLE 
 exports.googleLogin = async (req, res) => {
     try {
         // Quitamos "imagen" de la recepción de datos
@@ -108,7 +107,6 @@ exports.googleLogin = async (req, res) => {
             }
         } else {
             // CASO 2: USUARIO NUEVO
-            // Eliminamos "imagen_perfil" de la lista de columnas y de los VALUES
             const [result] = await db.query(
                 `INSERT INTO users 
                 (nombres, apellidos, email, password, rol, auth_provider, created_at, is_verified) 
@@ -126,14 +124,14 @@ exports.googleLogin = async (req, res) => {
             };
         }
 
-        // B. Generamos el Token
+        // B. Generar el Token
         const token = jwt.sign(
             { id: user.id, role: user.rol || 'estudiante' }, 
             process.env.JWT_SECRET, 
             { expiresIn: '1d' }
         );
 
-        // C. Respondemos al Frontend (Sin enviar imagen_perfil)
+        // C. Respondemos al Frontend 
         res.json({
             message: 'Login con Google exitoso',
             token,
@@ -150,7 +148,7 @@ exports.googleLogin = async (req, res) => {
         res.status(500).json({ message: 'Error en el servidor con Google' });
     }
 };
-// --- 4. LOGIN CON FACEBOOK (CORREGIDO SIN IMAGEN) ---
+// 4. LOGIN CON FACEBOOK 
 exports.facebookLogin = async (req, res) => {
     try {
         // Facebook envía los datos; nosotros solo tomamos lo necesario
@@ -164,13 +162,13 @@ exports.facebookLogin = async (req, res) => {
         let user = await User.findByEmail(email);
 
         if (user) {
-            // Si existe pero entró por otro medio, actualizamos a 'facebook'
+            // Si existe pero entró por otro medio, se actualiza a 'facebook'
             if (user.auth_provider !== 'facebook') {
                 await db.query('UPDATE users SET auth_provider = ? WHERE id = ?', ['facebook', user.id]);
                 user.auth_provider = 'facebook';
             }
         } else {
-            // B. Si es nuevo, lo creamos (SIN columna imagen_perfil)
+            // B. Si es nuevo, se crea
             const [result] = await db.query(
                 `INSERT INTO users 
                 (nombres, apellidos, email, password, rol, auth_provider, created_at, is_verified) 
@@ -212,14 +210,3 @@ exports.facebookLogin = async (req, res) => {
     }
 };
 
-// --- FUNCIÓN TEMPORAL PARA ARREGLAR LA BASE DE DATOS ---
-exports.fixDatabase = async (req, res) => {
-    try {
-        // Este comando amplia la columna para aceptar 'facebook' y lo que sea
-        await db.query("ALTER TABLE users MODIFY COLUMN auth_provider VARCHAR(50) DEFAULT 'local'");
-        res.send("<h1>¡Base de Datos Arreglada! ✅</h1><p>Ya puedes borrar esta función y la ruta.</p>");
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("<h1>Error ❌</h1><p>" + error.message + "</p>");
-    }
-};

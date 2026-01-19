@@ -24,12 +24,7 @@ function CoursePage() {
 
     const getImageUrl = (url) => {
         if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
-
-        // 1. Si ya es un link de Cloudinary (empieza con http), úsalo directo
         if (url.startsWith('http')) return url;
-
-        // 2. Si es una ruta vieja (/uploads/...), apunta a tu BACKEND DE RAILWAY
-        // NUNCA USES LOCALHOST AQUÍ PARA PRODUCCIÓN
         const backendUrl = 'https://innovalabcenter-production.up.railway.app';
         
         const path = url.startsWith('/') ? url : `/${url}`;
@@ -88,8 +83,6 @@ function CoursePage() {
 
         try {
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            
-            // CORRECCIÓN CLAVE: Enviamos 'metodo_pago' para evitar Error 400
             const res = await axios.post(`/enrollments/courses/${cleanId}/enroll`, {
                 metodo_pago: method 
             }, config);
@@ -148,7 +141,6 @@ function CoursePage() {
             </div>
 
             <div style={{ maxWidth: '1100px', margin: '30px auto', padding: '0 20px 60px' }}>
-                {/* BANNER ORIGINAL */}
                 <div style={{ borderRadius: '20px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)', position: 'relative', height: '350px', backgroundColor: '#eee' }}>
                     <img src={getImageUrl(course.imagen_portada)} alt={course.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%)', padding: '60px 40px 30px', boxSizing: 'border-box' }}>

@@ -35,13 +35,8 @@ function AdminDashboard() {
     const getImageUrl = (url) => {
         if (!url) return 'https://via.placeholder.com/300?text=Sin+Imagen';
 
-        // 1. Si ya es un link de Cloudinary (empieza con http), úsalo directo
         if (url.startsWith('http')) return url;
-
-        // 2. Si es una ruta vieja (/uploads/...), apunta a tu BACKEND DE RAILWAY
-        // NUNCA USES LOCALHOST AQUÍ PARA PRODUCCIÓN
         const backendUrl = 'https://innovalabcenter-production.up.railway.app';
-        
         const path = url.startsWith('/') ? url : `/${url}`;
         return `${backendUrl}${path}`;
     };

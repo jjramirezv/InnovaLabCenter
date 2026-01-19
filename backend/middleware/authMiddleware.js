@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 exports.verifyToken = (req, res, next) => {
     const tokenHeader = req.headers['authorization'];
     
-    // DEBUG: Ver si llega el token
     console.log("--- MIDDLEWARE AUTH ---");
     console.log("1. Token recibido:", tokenHeader ? "Sí" : "No");
 
@@ -17,7 +16,7 @@ exports.verifyToken = (req, res, next) => {
         
         req.user = decoded;
         console.log("2. Usuario decodificado ID:", req.user.id);
-        console.log("3. Rol detectado:", req.user.role); // <--- ESTO ES LO IMPORTANTE
+        console.log("3. Rol detectado:", req.user.role);
         
         next();
     } catch (error) {

@@ -1,11 +1,10 @@
 const db = require('../config/db');
 
-// 1. INSCRIBIR ESTUDIANTE (Corregido para recibir metodo_pago)
+// 1. INSCRIBIR ESTUDIANTE 
 exports.enrollStudent = async (req, res) => {
     try {
         const { courseId } = req.params;
         const userId = req.user.id;
-        // RECIBIMOS metodo_pago para que coincida con CoursePage.jsx
         const { metodo_pago } = req.body; 
 
         // Verificar si ya existe
@@ -54,7 +53,6 @@ exports.checkEnrollment = async (req, res) => {
     }
 };
 
-// ... Resto de funciones getUserEnrollments, getPendingEnrollments, approveEnrollment, rejectEnrollment se mantienen igual ...
 exports.getUserEnrollments = async (req, res) => {
     try {
         const { userId } = req.params;

@@ -20,10 +20,10 @@ app.use('/uploads', express.static('uploads'));
 // Prefijos de rutas estandarizados para el Frontend
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
-app.use('/api/enrollments', enrollmentRoutes); // Ruta: /api/enrollments/...
-app.use('/api/users', userRoutes);             // Ruta: /api/users/profile
+app.use('/api/enrollments', enrollmentRoutes); 
+app.use('/api/users', userRoutes);          
 app.use('/api/resources', resourceRoutes);
-app.use('/api/quizzes', quizRoutes);           // Ruta: /api/quizzes/...
+app.use('/api/quizzes', quizRoutes);        
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
@@ -32,7 +32,6 @@ app.listen(PORT, '0.0.0.0', () => {
 const fs = require('fs');
 const path = require('path');
 
-// Crear la carpeta 'uploads' si no existe al iniciar el servidor
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir);

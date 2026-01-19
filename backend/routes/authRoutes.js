@@ -7,7 +7,6 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/google', authController.googleLogin);
 
-// conectar a facebook
+// conectar a facbook
 router.post('/facebook', authController.facebookLogin); 
-router.get('/fix-db', authController.fixDatabase);
 module.exports = router;

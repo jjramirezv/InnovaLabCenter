@@ -3,7 +3,6 @@ const db = require('../config/db');
 class User {
     static async create(userData) {
         const { names, lastNames, email, password, phone } = userData;
-        // Por defecto rol 'estudiante' y auth_provider 'local'
         const sql = `
             INSERT INTO users (nombres, apellidos, email, password, celular, rol, auth_provider) 
             VALUES (?, ?, ?, ?, ?, 'estudiante', 'local')

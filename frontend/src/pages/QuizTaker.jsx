@@ -17,13 +17,11 @@ function QuizTaker() {
     const [result, setResult] = useState(null); 
     const [submitting, setSubmitting] = useState(false);
     
-    // --- ESTADO PARA EL MODAL PERSONALIZADO ---
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                // Autenticación necesaria también aquí por seguridad
                 const token = localStorage.getItem('token');
                 const config = { headers: { Authorization: `Bearer ${token}` } };
                 
@@ -47,12 +45,10 @@ function QuizTaker() {
         setAnswers(prev => ({ ...prev, [qId]: { textValue: text } }));
     };
 
-    // PASO 1: Activar el modal personalizado (NO USAR window.confirm)
     const handlePreSubmit = () => {
         setShowConfirmModal(true);
     };
 
-    // PASO 2: Envío real al confirmar en el modal
     const confirmSubmit = async () => {
         setShowConfirmModal(false);
         setSubmitting(true);
@@ -86,7 +82,6 @@ function QuizTaker() {
 
     if (loading) return <div style={{padding:'50px', textAlign:'center'}}>Cargando examen...</div>;
 
-    // --- VISTA RESULTADOS ---
     if (result) {
         return (
             <div style={{ maxWidth: '600px', margin: '50px auto', padding: '40px', background: 'white', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.05)', textAlign: 'center', fontFamily: "'Poppins', sans-serif" }}>
@@ -106,7 +101,6 @@ function QuizTaker() {
         );
     }
 
-    // --- VISTA EXAMEN ---
     return (
         <div style={{ minHeight: '100vh', background: '#F4F6F8', padding: '30px', fontFamily: "'Poppins', sans-serif" }}>
             <div style={{ maxWidth: '800px', margin: '0 auto 30px', background: 'white', padding: '15px 25px', borderRadius: '12px', boxShadow: '0 4px 15px rgba(0,0,0,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: '20px', zIndex: 100 }}>

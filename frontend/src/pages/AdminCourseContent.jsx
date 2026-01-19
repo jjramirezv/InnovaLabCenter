@@ -64,7 +64,6 @@ function AdminCourseContent() {
             setLessons(resLessons.data);
             setStudents(resStudents.data);
             setCourseGrades(resGrades.data);
-            // Ajustar el orden automáticamente para la siguiente lección
             setNewLesson(prev => ({ ...prev, orden: resLessons.data.length + 1 }));
         } catch (error) { console.error(error); }
     };
@@ -73,7 +72,6 @@ function AdminCourseContent() {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            // Enviamos todo el objeto para que el backend no de Error 500
             await axios.post(`/courses/${cleanId}/lessons`, newLesson, { 
                 headers: { Authorization: `Bearer ${token}` } 
             });

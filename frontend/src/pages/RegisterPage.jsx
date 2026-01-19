@@ -56,9 +56,6 @@ function RegisterPage() {
         const responseFacebook = async (response) => {
         if (response.accessToken) {
             try {
-                // Enviar al Backend de InnovaLab
-                // Facebook separa el nombre en response.name, 
-                // pero para ser más precisos con nombres/apellidos:
                 const names = response.name.split(' ')[0];
                 const lastNames = response.name.split(' ').slice(1).join(' ');
 
@@ -69,7 +66,7 @@ function RegisterPage() {
                     facebookId: response.id
                 });
 
-                // Guardamos datos localmente
+                // Se guarda los datos localmente
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('user', JSON.stringify(res.data.user));
 

@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 
 exports.getProfile = async (req, res) => {
     try {
-        // Quitamos imagen_perfil del SELECT por limpieza
         const [user] = await db.query(
             'SELECT id, nombres, apellidos, email, auth_provider FROM users WHERE id = ?', 
             [req.user.id]
@@ -46,9 +45,7 @@ exports.updateProfile = async (req, res) => {
             sqlParts.push('password = ?', 'cambios_clave_count = ?', 'ultimo_cambio_clave = NOW()');
             params.push(hashedPass, cambios_clave_count);
         }
-
-        // ELIMINADA la lógica de req.file
-
+        
         params.push(userId);
         const finalSql = `UPDATE users SET ${sqlParts.join(', ')} WHERE id = ?`;
         

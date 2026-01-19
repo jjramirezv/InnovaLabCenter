@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FaWhatsapp, FaTimes, FaMobileAlt, FaMoneyBillWave, FaUniversity, FaArrowLeft, FaCopy, FaCheck } from 'react-icons/fa';
 
-// --- TUS DATOS REALES SINCRONIZADOS ---
 const DATA = {
     wspNumber: "51987564941", 
     yapeNumber: "950705734",
@@ -9,7 +8,7 @@ const DATA = {
     bbvaAccount: "898 3310032214",
     bbvaCCI: "00389801331003221447",
     holderName: "Luis Damian Damian",
-    // Rutas de imágenes (deben estar en la carpeta public)
+    // Rutas de imágenes 
     qrYape: "/qr-yape.png",
     qrPlin: "/qr-plin.png"
 };

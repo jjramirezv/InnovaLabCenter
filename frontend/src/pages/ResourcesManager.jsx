@@ -9,10 +9,8 @@ function ResourcesManager({ courseId }) {
     const [resources, setResources] = useState([]);
     const [loading, setLoading] = useState(false);
     
-    // Formulario simplificado: Solo texto
     const [newRes, setNewRes] = useState({ titulo: '', url_externa: '', descripcion: '' });
 
-    // ESTADOS DE UI
     const [validationError, setValidationError] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -33,7 +31,6 @@ function ResourcesManager({ courseId }) {
         e.preventDefault();
         setValidationError('');
 
-        // VALIDACIÓN
         if (!newRes.titulo.trim()) {
             setValidationError('Por favor, ingresa un título para el recurso.');
             return;
@@ -48,10 +45,9 @@ function ResourcesManager({ courseId }) {
         try {
             const token = localStorage.getItem('token');
             
-            // Enviamos un JSON simple ya que no hay archivos físicos
             await axios.post(`/resources/course/${courseId}`, {
                 titulo: newRes.titulo,
-                tipo: 'link', // Forzamos que el tipo siempre sea link
+                tipo: 'link', 
                 url_externa: newRes.url_externa,
                 descripcion: newRes.descripcion
             }, {
