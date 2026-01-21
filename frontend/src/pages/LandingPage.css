@@ -98,7 +98,7 @@
 
 .lp-title-main { font-size: 3.5rem; line-height: 1.1; margin-bottom: 25px; font-weight: 800; }
 .lp-text-gradient {
-    background: linear-gradient(to right, var((--primary));
+    background: linear-gradient(to right, var(--primary), var(--primary));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
