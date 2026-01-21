@@ -6,8 +6,8 @@
     --primary: #22d3ee;       /* Cyan brillante */
     --secondary: #8b5cf6;     /* Violeta */
     --accent: #f59e0b;        /* Naranja/Amber */
-    --text-main: #f8fafc;     /* Blanco */
-    --text-muted: #94a3b8;    /* Gris azulado */
+    --text-main: #f8fafc;     /* Blanco puro para el texto principal */
+    --text-muted: #cbd5e1;    /* Gris claro para texto secundario */
     --border-glass: rgba(255, 255, 255, 0.1);
 }
 
@@ -95,6 +95,7 @@
 .lp-hero h1 {
     font-size: 3.8rem; line-height: 1.1; margin-bottom: 25px;
     font-weight: 800; letter-spacing: -1px;
+    color: var(--text-main); /* Asegura que el texto no degradado sea blanco */
 }
 .text-gradient {
     background: linear-gradient(to right, var(--primary), var(--secondary));
@@ -173,7 +174,7 @@
 /* --- CATEGORÍAS --- */
 .lp-categories { padding: 80px 5%; background: var(--bg-dark); position: relative; z-index: 2; }
 .section-header-center { text-align: center; margin-bottom: 60px; }
-.section-header-center h2 { font-size: 2.5rem; margin-bottom: 10px; }
+.section-header-center h2 { font-size: 2.5rem; margin-bottom: 10px; color: var(--text-main); }
 .h-line { width: 60px; height: 4px; background: var(--primary); margin: 0 auto; border-radius: 2px; }
 
 .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
@@ -195,12 +196,13 @@
 .icon-bg.orange { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
 .icon-bg.blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
 
-.cat-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+.cat-card h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--text-main); }
 .cat-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
 /* --- CURSOS DESTACADOS --- */
 .lp-featured { padding: 100px 5%; background: #0b101e; border-top: 1px solid var(--border-glass); }
 .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; }
+.section-header h2 { color: var(--text-main); }
 .subtitle { color: var(--text-muted); margin-top: 5px; }
 .see-all { color: var(--primary); text-decoration: none; font-weight: 700; transition: 0.3s; }
 .see-all:hover { color: white; }
@@ -258,7 +260,7 @@
 .footer-logo { font-size: 1.8rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); display: flex; gap: 10px; align-items: center; }
 .footer-desc { color: var(--text-muted); line-height: 1.7; font-size: 1rem; }
 
-.footer-contact h3 { font-size: 1.4rem; margin-bottom: 15px; }
+.footer-contact h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); }
 .footer-contact p { color: var(--text-muted); margin-bottom: 20px; }
 
 .btn-whatsapp {
