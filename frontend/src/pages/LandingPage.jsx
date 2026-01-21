@@ -35,7 +35,7 @@ function LandingPage() {
     return (
         <div className="landing-wrapper">
             
-            {/* FONDO ANIMADO GLOBAL */}
+            {/* FONDO DECORATIVO GLOBAL */}
             <div className="global-bg-decoration"></div>
 
             {/* NAVBAR */}
