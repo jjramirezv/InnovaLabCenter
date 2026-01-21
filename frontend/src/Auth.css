@@ -149,7 +149,7 @@
   align-items: center;
   justify-content: center;
   background-color: #0f172a; /* Fondo oscuro SOLO para login */
-  background-image: radial-gradient(circle at 50% 50%, #3a415a 0%, #32384D 100%);
+  background-image: radial-gradient(circle at 50% 50%, #3a415a 0%, #0f172a 100%);
   padding: 20px;
 }
 
